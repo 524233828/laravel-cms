@@ -26,3 +26,4 @@ use Illuminate\Support\Facades\Route;
 Route::get("/get_card","IndexController@getCard");
 Route::get("/wechat/access_token","WechatController@getAccessToken");
 Route::post("/wechat/index","WechatController@index");
+Route::get("/wechat/index","WechatController@index");
