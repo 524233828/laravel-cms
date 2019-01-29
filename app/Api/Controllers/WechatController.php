@@ -28,8 +28,13 @@ class WechatController extends BaseController
 
         $body = $request->getContent();
 
+        if($request->method() == "GET")
+        {
+            return response($request->get("echostr"));
+        }
+
         $log->addDebug("body:".$body);
         $log->addDebug("url:".$request->fullUrl());
-        echo $request->get("echostr");
+
     }
 }
