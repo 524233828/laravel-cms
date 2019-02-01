@@ -49,7 +49,8 @@ class WechatLogic extends Logic
 
             if(isset($event->msgid))
             {
-               return "";
+                $log->addDebug("id:".$event->msgid);
+                return "";
             }
 
             $event = new WechatUserEvent();
@@ -63,7 +64,9 @@ class WechatLogic extends Logic
                 "body" => json_encode($message)
             ]);
 
-            $event->save();
+            $result = $event->save();
+
+            $log->addDebug("result:".$result);
 
             return "";
         });
