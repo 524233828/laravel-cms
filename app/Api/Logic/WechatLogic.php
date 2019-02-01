@@ -34,26 +34,22 @@ class WechatLogic extends Logic
 
     public function index($original_id)
     {
-        $log = myLog("wechat_logic_index");
+
         $wx_app_id = WechatOfficialAccount::where("original_id", $original_id)->first()->wx_app_id;
 
         $sdk = new WechatOfficialService();
 
-        $response = $sdk->handleEvent($wx_app_id, function($message) use($log)
+        $response = $sdk->handleEvent($wx_app_id, function($message)
         {
-            $log->addDebug("message", $message);
-
             $msg_id = isset($message['MsgId']) ? $message['MsgId'] : md5(json_encode($message));
-            $log->addDebug("id:".$msg_id);
+
             $event = WechatUserEvent::where("msgid", $msg_id)->first();
-            $log->addDebug("event:".$event);
+
             if(!empty($event))
             {
-                $log->addDebug("id:".$event->msgid);
+
                 return "";
             }
-
-            $log->addDebug("aaa");
             $event = new WechatUserEvent();
 
             $event->setRawAttributes([
@@ -65,17 +61,7 @@ class WechatLogic extends Logic
                 "body" => json_encode($message)
             ]);
 
-            $log->addDebug($event->msg_type);
-            try{
-                $result = $event->save();
-            }catch(\Exception $e)
-            {
-                $log->addDebug($e->getMessage());
-                $log->addDebug($e->getTraceAsString());
-            }
-
-
-            $log->addDebug("result:".$result);
+            $result = $event->save();
 
             return "";
         });
