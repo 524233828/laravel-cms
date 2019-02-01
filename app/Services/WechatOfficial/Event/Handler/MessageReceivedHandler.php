@@ -10,7 +10,7 @@
 namespace App\Services\WechatOfficial\Event\Handler;
 
 use EasyWeChat\Kernel\Contracts\EventHandlerInterface;
-use EasyWechat\Kernel\Messages\Text;
+//use EasyWechat\Kernel\Messages\Text;
 
 class MessageReceivedHandler implements EventHandlerInterface
 {
