@@ -47,7 +47,7 @@ class WechatLogic extends Logic
             $log->addDebug("id:".$msg_id);
             $event = WechatUserEvent::where("msgid", $msg_id)->first();
             $log->addDebug("event:".serialize($event));
-            if(isset($event->msgid))
+            if(empty($event))
             {
                 $log->addDebug("id:".$event->msgid);
                 return "";
