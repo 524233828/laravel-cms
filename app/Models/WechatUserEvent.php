@@ -23,4 +23,9 @@ class WechatUserEvent extends Model
     {
         return $this->belongsTo(WechatOfficialAccount::class, "to_user_name", "original_id");
     }
+
+    public function type()
+    {
+        return $this->belongsTo(WechatUserEventType::class, "msg_type", "tag");
+    }
 }

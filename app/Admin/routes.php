@@ -35,6 +35,7 @@ Route::group([
     $router->resource('/wechat_menu_types', 'WechatMenuTypeController');
     $router->resource('/wechat_menu_type_options', 'WechatMenuTypeOptionController');
     $router->resource('/wechat_user_events', 'WechatUserEventController');
+    $router->resource('/wechat_user_event_types', 'WechatUserEventTypeController');
     $router->post("/wechat_menu/create/{wx_app_id}", 'WechatMenuController@menuCreate');
     $router->resource('wx_app_id.wechat_menus', 'WechatMenuController');
     $router->post('/wechat_menus/{menu_id}/configs/{config_id}', 'WechatMenuConfigController@store');
