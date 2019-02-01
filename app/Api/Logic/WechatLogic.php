@@ -46,13 +46,14 @@ class WechatLogic extends Logic
             $msg_id = isset($message['MsgId']) ? $message['MsgId'] : md5(json_encode($message));
             $log->addDebug("id:".$msg_id);
             $event = WechatUserEvent::where("msgid", $msg_id)->first();
-            $log->addDebug("event:".serialize($event));
+            $log->addDebug("event:".$event);
             if(!empty($event))
             {
                 $log->addDebug("id:".$event->msgid);
                 return "";
             }
 
+            $log->addDebug("aaa");
             $event = new WechatUserEvent();
 
             $event->setRawAttributes([
