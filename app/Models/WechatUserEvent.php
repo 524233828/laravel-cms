@@ -17,5 +17,5 @@ class WechatUserEvent extends Model
     public $keyType = "string";
     public $incrementing = false;
 
-    const CREATED_AT = "received_time";
+    const CREATED_AT = "received_at";
 }
