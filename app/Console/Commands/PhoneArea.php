@@ -68,7 +68,7 @@ class PhoneArea extends Command
         }
 
         $writer = new Xls($spreadsheet);
-        $writer->save(base_path("public".DIRECTORY_SEPARATOR."Excel".DIRECTORY_SEPARATOR."4.xls"));
+        $writer->save(base_path("Excel".DIRECTORY_SEPARATOR."b.xls"));
 //        var_dump($sheetData);
     }
 }

@@ -10,9 +10,6 @@ namespace App\Api\Controllers;
 
 
 use App\Api\Logic\WechatLogic;
-use App\Models\WechatOfficialAccount;
-use App\Services\WechatOfficial\Event\Handler\MessageReceivedHandler;
-use App\Services\WechatOfficial\WechatOfficialService;
 use EasyWeChat\Kernel\Support\XML;
 use Illuminate\Http\Request;
 
@@ -43,15 +40,9 @@ class WechatController extends BaseController
         $body_array = XML::parse($body);
         $log->addDebug("body_array:", $body_array);
 //        $body['']
-        $original_id = $body_array['ToUserName'];
+        $original_id= $body_array['ToUserName'];
 
-        $wx_app_id = WechatOfficialAccount::where("original_id", $original_id)->first()->wx_app_id;
-
-        $sdk = new WechatOfficialService();
-
-        $response = $sdk->handleEvent($wx_app_id, MessageReceivedHandler::class);
-
-        return $response;
+        return WechatLogic::getInstance()->index($original_id);
 
     }
 }
