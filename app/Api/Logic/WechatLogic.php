@@ -63,6 +63,8 @@ class WechatLogic extends Logic
                 "body" => json_encode($message)
             ]);
 
+            $event->save();
+
             return "";
         });
 
