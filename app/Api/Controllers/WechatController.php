@@ -10,6 +10,7 @@ namespace App\Api\Controllers;
 
 
 use App\Api\Logic\WechatLogic;
+use EasyWeChat\Kernel\Support\XML;
 use Illuminate\Http\Request;
 
 class WechatController extends BaseController
@@ -35,6 +36,10 @@ class WechatController extends BaseController
 
         $log->addDebug("body:".$body);
         $log->addDebug("url:".$request->fullUrl());
+
+        $body_array = XML::parse($body);
+        $log->addDebug("body_array:", $body_array);
+//        $body['']
 
     }
 }
