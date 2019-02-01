@@ -18,4 +18,9 @@ class WechatUserEvent extends Model
     public $incrementing = false;
 
     const CREATED_AT = "received_at";
+
+    public function account()
+    {
+        return $this->belongsTo(WechatOfficialAccount::class, "to_user_name", "original_id");
+    }
 }
