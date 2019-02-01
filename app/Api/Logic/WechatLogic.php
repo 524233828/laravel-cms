@@ -44,9 +44,9 @@ class WechatLogic extends Logic
             $log->addDebug("message", $message);
 
             $msg_id = isset($message['MsgId']) ? $message['MsgId'] : md5(json_encode($message));
-
+            $log->addDebug("id:".$msg_id);
             $event = WechatUserEvent::where("msgid", $msg_id)->first();
-
+            $log->addDebug("event:".serialize($event));
             if(isset($event->msgid))
             {
                 $log->addDebug("id:".$event->msgid);
