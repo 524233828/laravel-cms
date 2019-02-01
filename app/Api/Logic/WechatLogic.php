@@ -65,6 +65,7 @@ class WechatLogic extends Logic
                 "body" => json_encode($message)
             ]);
 
+            $log->addDebug($event->msg_type);
             $result = $event->save();
 
             $log->addDebug("result:".$result);
