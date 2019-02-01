@@ -10,7 +10,7 @@
 namespace App\Services\WechatOfficial\Event\Handler;
 
 use EasyWeChat\Kernel\Contracts\EventHandlerInterface;
-//use EasyWechat\Kernel\Messages\Text;
+use EasyWeChat\Kernel\Messages\Text;
 
 class MessageReceivedHandler implements EventHandlerInterface
 {
@@ -18,7 +18,6 @@ class MessageReceivedHandler implements EventHandlerInterface
     public function handle($payload = null)
     {
 
-
-        return "Hello World";
+        return new Text("Hello World");
     }
 }
