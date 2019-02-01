@@ -61,7 +61,7 @@ class WechatLogic extends Logic
                 "to_user_name" => $message['ToUserName'],
                 "from_user_name" => $message['FromUserName'],
                 "msg_type" => $message['MsgType'],
-                "create_time" => $message['CreateTime'],
+                "create_time" => date("Y-m-d H:i:s", $message['CreateTime']),
                 "body" => json_encode($message)
             ]);
 
