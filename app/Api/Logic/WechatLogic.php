@@ -66,7 +66,13 @@ class WechatLogic extends Logic
             ]);
 
             $log->addDebug($event->msg_type);
-            $result = $event->save();
+            try{
+                $result = $event->save();
+            }catch(\Exception $e)
+            {
+                $log->addDebug($e->getTraceAsString());
+            }
+
 
             $log->addDebug("result:".$result);
 
