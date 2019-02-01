@@ -10,12 +10,15 @@
 namespace App\Services\WechatOfficial\Event\Handler;
 
 use EasyWeChat\Kernel\Contracts\EventHandlerInterface;
+use EasyWechat\Kernel\Messages\Text;
 
 class MessageReceivedHandler implements EventHandlerInterface
 {
 
     public function handle($payload = null)
     {
-        // TODO: Implement handle() method.
+        $text = new Text("您好");
+
+        return $text;
     }
 }

@@ -127,5 +127,14 @@ class WechatOfficialService
         $response = $this->getApp($wx_app_id)->menu->create($menu);
         return $response;
     }
+
+    public function handleEvent($wx_app_id, $handler = null)
+    {
+        $app = $this->getApp($wx_app_id);
+
+        $app->server->push($handler);
+
+        return $app->server->serve();
+    }
     
 }
