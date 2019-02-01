@@ -18,6 +18,6 @@ class MessageReceivedHandler implements EventHandlerInterface
     public function handle($payload = null)
     {
 
-        return new Text("Hello World");
+        return new Text("您好");
     }
 }
