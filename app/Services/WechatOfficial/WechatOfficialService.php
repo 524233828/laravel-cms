@@ -13,12 +13,17 @@ use App\Models\WechatMenu;
 use App\Models\WechatMenuConfig;
 use App\Models\WechatMenuType;
 use App\Models\WechatOfficialAccount;
+use App\Services\WechatOfficial\Constant\UserEventType;
+use App\Services\WechatOfficial\Replier\MainReplier;
+use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Cache\Simple\RedisCache;
 use EasyWeChat\Factory;
 use Illuminate\Support\Facades\Redis;
 
 class WechatOfficialService
 {
+
+
 
     public function getAccessToken($wx_app_id = "")
     {
@@ -135,6 +140,15 @@ class WechatOfficialService
         $app->server->push($handler);
 
         return $app->server->serve();
+    }
+
+    public function sendCustom($wx_app_id, $type, $params)
+    {
+        $app = $this->getApp($wx_app_id);
+
+        $replier = new MainReplier();
+
+        return $replier->send($app, $params, $type);
     }
     
 }
