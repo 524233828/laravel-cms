@@ -21,7 +21,11 @@ class TextReplier extends AbstractReplier
      */
     public function send(Application $app, array $params)
     {
+        $log = myLog("text_replier");
+        $log->addDebug("params", $params);
         $message = new Text($params['content']);
-        return $app->customer_service->message($message)->send();
+        $result = $app->customer_service->message($message)->send();
+        $log->addDebug("result".serialize($result));
+        return $result;
     }
 }
