@@ -15,7 +15,6 @@ use App\Models\WechatReceivedReply;
 use App\Models\WechatReceivedText;
 use App\Models\WechatUserEvent;
 use App\Services\WechatOfficial\Constant\UserEventType;
-use App\Services\WechatOfficial\Event\Handler\MessageReceivedHandler;
 use App\Services\WechatOfficial\WechatOfficialService;
 use Illuminate\Database\Eloquent\Model;
 
@@ -122,10 +121,12 @@ class WechatLogic extends Logic
         {
             if(isset(UserEventType::$replier_model[$type]))
             {
+
+                $class = UserEventType::$replier_model[$type];
                 /**
                  * @var Model $model
                  */
-                $model = new (UserEventType::$replier_model[$type])();
+                $model = new $class();
 
                 $reply = $model->whereIn("id", $ids)->get()->all();
 

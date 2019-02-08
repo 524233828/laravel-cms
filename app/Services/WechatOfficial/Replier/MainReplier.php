@@ -18,10 +18,12 @@ class MainReplier
         if(isset(UserEventType::$replier[$type]))
         {
 
+            $class = UserEventType::$replier[$type];
+
             /**
              * @var AbstractReplier $replier
              */
-            $replier = new (UserEventType::$replier[$type])();
+            $replier = new $class();
 
             return $replier->send($app, $params);
         }
