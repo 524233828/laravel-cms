@@ -160,14 +160,14 @@ class WechatLogic extends Logic
         $log->addDebug("replier:".json_encode($replier));
         //发送
         $sdk = new WechatOfficialService();
-        foreach ($replier as $item)
-        {
-            $log->addDebug("wx_app_id:".$wx_app_id);
-            $log->addDebug("type:". $item['type']);
-            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item->toArray(), $openid);
-
-            $log->addDebug("send_Result:", $result->toArray());
-        }
+//        foreach ($replier as $item)
+//        {
+//            $log->addDebug("wx_app_id:".$wx_app_id);
+//            $log->addDebug("type:". $item['type']);
+//            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item->toArray(), $openid);
+//
+//            $log->addDebug("send_Result:", $result->toArray());
+//        }
 
         return $sdk->getReplied($been_replied['type'], $been_replied->toArray());
     }
