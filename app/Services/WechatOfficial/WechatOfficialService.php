@@ -144,8 +144,10 @@ class WechatOfficialService
 
     public function sendCustom($wx_app_id, $type, $params, $to)
     {
+        $log = myLog("service");
         $app = $this->getApp($wx_app_id);
-
+        $log->addDebug("app_id". $wx_app_id);
+        $log->addDebug("app". json_encode($app));
         $replier = new MainReplier();
 
         return $replier->send($app, $params, $type, $to);
