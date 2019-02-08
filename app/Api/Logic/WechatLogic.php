@@ -160,8 +160,7 @@ class WechatLogic extends Logic
         {
             $log->addDebug("wx_app_id:".$wx_app_id);
             $log->addDebug("type:". $item['type']);
-            $log->addDebug("params:", $item->toArray());
-            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item);
+            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item->toArray());
 
             $log->addDebug("send_Result:", $result->toArray());
         }
