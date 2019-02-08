@@ -65,7 +65,8 @@ class WechatLogic extends Logic
             ]);
 
             $result = $event->save();
-
+            $log = myLog("wechat_index");
+            $log->addDebug("message",$message);
             switch ($message['MsgType'])
             {
                 case UserEventType::TEXT:
@@ -74,6 +75,7 @@ class WechatLogic extends Logic
                     //文字回复只有全匹配和半匹配
                     //全匹配通过数据库直接查询
                     $receiver = WechatReceivedText::where(["wx_app_id" =>$wx_app_id,"type" => 1, "content" => $text])->first();
+                    $log->addDebug("receiver".serialize($receiver));
                     if(!empty($receiver))
                     {
                         return $this->replyText($receiver->id, $wx_app_id);
@@ -81,7 +83,7 @@ class WechatLogic extends Logic
 
                     //半匹配需要获取所有当前公众号的配置去匹配
                     $receivers = WechatReceivedText::where(["wx_app_id" =>$wx_app_id,"type" => 0])->all();
-
+                    $log->addDebug("receiver".serialize($receivers));
                     foreach ($receivers as $receiver)
                     {
                         if(strpos($text,$receiver['content'])!==false)
@@ -104,11 +106,14 @@ class WechatLogic extends Logic
 
     protected function replyText($received_id, $wx_app_id)
     {
+        $log = myLog("custom_send");
         //获取所有响应者
         $received_reply = WechatReceivedReply::where("received_id", $received_id)->get()->toArray();
+        $log->addDebug("received_reply".serialize($received_reply));
 
         //根据类型分类
         $type_index_reply_id = [];
+        //类型-响应者ID=>对象数组
         $type_reply_id_index = [];
         foreach($received_reply as $value)
         {
@@ -116,6 +121,7 @@ class WechatLogic extends Logic
             $type_reply_id_index[$value['type']][$value['reply_id']] = $value;
         }
 
+        //获取所有响应者
         $replier = [];
         foreach ($type_index_reply_id as $type => $ids)
         {
@@ -141,9 +147,10 @@ class WechatLogic extends Logic
             }
         }
 
+        //排序
         $replier = array_values(collect($replier)->sortByDesc("sort")->all());
 
-        $log = myLog("custom_send");
+        //发送
         $sdk = new WechatOfficialService();
         foreach ($replier as $item)
         {
