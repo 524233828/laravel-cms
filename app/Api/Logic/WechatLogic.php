@@ -110,7 +110,7 @@ class WechatLogic extends Logic
         $log = myLog("custom_send");
         //获取所有响应者
         $received_reply = WechatReceivedReply::where("received_id", $received_id)->get()->toArray();
-        $log->addDebug("received_reply".serialize($received_reply));
+        $log->addDebug("received_reply".json_encode($received_reply));
 
         //根据类型分类
         $type_index_reply_id = [];
@@ -122,6 +122,8 @@ class WechatLogic extends Logic
             $type_reply_id_index[$value['type']][$value['reply_id']] = $value;
         }
 
+        $log->addDebug("type_index_reply_id".json_encode($type_index_reply_id));
+        $log->addDebug("type_reply_id_index".json_encode($type_reply_id_index));
         //获取所有响应者
         $replier = [];
         foreach ($type_index_reply_id as $type => $ids)
@@ -134,8 +136,9 @@ class WechatLogic extends Logic
                  * @var Model $model
                  */
                 $model = new $class();
-
+                $log->addDebug("ids".json_encode($ids));
                 $reply = $model->whereIn("id", $ids)->get()->all();
+                $log->addDebug("reply".json_encode($reply));
 
                 foreach ($reply as &$item)
                 {
