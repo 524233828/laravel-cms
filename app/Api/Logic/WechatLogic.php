@@ -143,10 +143,13 @@ class WechatLogic extends Logic
 
         $replier = array_values(collect($replier)->sortByDesc("sort")->all());
 
+        $log = myLog("custom_send");
         $sdk = new WechatOfficialService();
         foreach ($replier as $item)
         {
-            $sdk->sendCustom($wx_app_id, $item['type'], $item);
+            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item);
+
+            $log->addDebug("send_Result:", $result->toArray());
         }
 
         return "";
