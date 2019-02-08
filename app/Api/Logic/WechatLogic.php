@@ -16,6 +16,7 @@ use App\Models\WechatReceivedText;
 use App\Models\WechatUserEvent;
 use App\Services\WechatOfficial\Constant\UserEventType;
 use App\Services\WechatOfficial\WechatOfficialService;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class WechatLogic extends Logic
@@ -69,7 +70,7 @@ class WechatLogic extends Logic
             $log->addDebug("message",$message);
             switch ($message['MsgType'])
             {
-                case UserEventType::TEXT:
+                case UserEventType::$alias[UserEventType::TEXT]:
 
                     $text = $message['Content'];
                     //文字回复只有全匹配和半匹配

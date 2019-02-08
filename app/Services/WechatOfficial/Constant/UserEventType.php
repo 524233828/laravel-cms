@@ -23,6 +23,10 @@ class UserEventType
     const LINK = 7;
     const EVENT = 8;
 
+    public static $alias = [
+        self::TEXT => "text",
+    ];
+
     public static $replier_model = [
         self::TEXT => WechatReplyText::class,
     ];
