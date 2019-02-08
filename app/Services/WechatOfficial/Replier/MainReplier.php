@@ -13,7 +13,7 @@ use App\Services\WechatOfficial\Constant\UserEventType;
 class MainReplier
 {
 
-    public function send($app, $params, $type)
+    public function send($app, $params, $type, $to)
     {
         if(isset(UserEventType::$replier[$type]))
         {
@@ -25,7 +25,7 @@ class MainReplier
              */
             $replier = new $class();
 
-            return $replier->send($app, $params);
+            return $replier->send($app, $params, $to);
         }
     }
 

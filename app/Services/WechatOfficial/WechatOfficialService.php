@@ -142,13 +142,13 @@ class WechatOfficialService
         return $app->server->serve();
     }
 
-    public function sendCustom($wx_app_id, $type, $params)
+    public function sendCustom($wx_app_id, $type, $params, $to)
     {
         $app = $this->getApp($wx_app_id);
 
         $replier = new MainReplier();
 
-        return $replier->send($app, $params, $type);
+        return $replier->send($app, $params, $type, $to);
     }
 
     public function getReplied($type, $params)

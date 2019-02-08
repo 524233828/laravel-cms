@@ -19,9 +19,10 @@ abstract class AbstractReplier
     /**
      * @param Application $app
      * @param array $params
+     * @param string $to
      * @return ResponseInterface|Collection|array|object|string
      */
-    abstract public function send(Application $app, array $params);
+    abstract public function send(Application $app, array $params, $to);
 
     abstract public function getReplied(array $params);
 }

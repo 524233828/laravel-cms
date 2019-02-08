@@ -17,15 +17,16 @@ class TextReplier extends AbstractReplier
     /**
      * @param Application $app
      * @param array $params
+     * @param string $to
      * @return \Psr\Http\Message\ResponseInterface|\EasyWeChat\Kernel\Support\Collection|array|object|string
      */
-    public function send(Application $app, array $params)
+    public function send(Application $app, array $params, $to)
     {
         $log = myLog("text_replier");
         $log->addDebug("params", $params);
         $log->addDebug("app".serialize($app));
         $message = new Text($params['content']);
-        $result = $app->customer_service->message($message)->send();
+        $result = $app->customer_service->message($message)->to($to)->send();
         $log->addDebug("result".serialize($result));
         return $result;
     }

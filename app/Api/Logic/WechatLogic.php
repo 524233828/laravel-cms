@@ -79,7 +79,7 @@ class WechatLogic extends Logic
                     $log->addDebug("receiver".serialize($receiver));
                     if(!empty($receiver))
                     {
-                        return $this->replyText($receiver->id, $wx_app_id);
+                        return $this->replyText($receiver->id, $wx_app_id, $message['FromUserName']);
                     }
 
                     //半匹配需要获取所有当前公众号的配置去匹配
@@ -89,7 +89,7 @@ class WechatLogic extends Logic
                     {
                         if(strpos($text,$receiver['content'])!==false)
                         {
-                            return $this->replyText($receiver->id, $wx_app_id);
+                            return $this->replyText($receiver->id, $wx_app_id, $message['FromUserName']);
                         }
                     }
                     break;
@@ -105,7 +105,7 @@ class WechatLogic extends Logic
         return $response;
     }
 
-    protected function replyText($received_id, $wx_app_id)
+    protected function replyText($received_id, $wx_app_id, $openid)
     {
         $log = myLog("custom_send");
         //获取所有响应者
@@ -164,7 +164,7 @@ class WechatLogic extends Logic
         {
             $log->addDebug("wx_app_id:".$wx_app_id);
             $log->addDebug("type:". $item['type']);
-            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item->toArray());
+            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item->toArray(), $openid);
 
             $log->addDebug("send_Result:", $result->toArray());
         }
