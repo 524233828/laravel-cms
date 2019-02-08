@@ -28,7 +28,7 @@ class TextReplier extends AbstractReplier
         $log->addDebug("to".$to);
         $message = new Text($params['content']);
         $result = $app->customer_service->message($message)->to($to)->send();
-        $log->addDebug("result".serialize($result));
+        $log->addDebug("result".json_encode($result));
         return $result;
     }
 
