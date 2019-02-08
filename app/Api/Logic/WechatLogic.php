@@ -150,10 +150,10 @@ class WechatLogic extends Logic
 
             }
         }
-        $log->addDebug("replier:".json_encode($replier));
+
         //排序
         $replier = array_values(collect($replier)->sortByDesc("sort")->all());
-
+        $log->addDebug("replier:".json_encode($replier));
         //发送
         $sdk = new WechatOfficialService();
         foreach ($replier as $item)
