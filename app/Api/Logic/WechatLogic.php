@@ -150,7 +150,7 @@ class WechatLogic extends Logic
 
             }
         }
-
+        $log->addDebug("replier:".json_encode($replier));
         //排序
         $replier = array_values(collect($replier)->sortByDesc("sort")->all());
 
