@@ -153,6 +153,10 @@ class WechatLogic extends Logic
 
         //排序
         $replier = array_values(collect($replier)->sortByDesc("sort")->all());
+
+        //弹出最后一个消息用于被动回复
+        $been_replied = array_pop($replier);
+
         $log->addDebug("replier:".json_encode($replier));
         //发送
         $sdk = new WechatOfficialService();
@@ -165,6 +169,6 @@ class WechatLogic extends Logic
             $log->addDebug("send_Result:", $result->toArray());
         }
 
-        return "";
+        return $sdk->getReplied($been_replied['type'], $been_replied->toArray());
     }
 }

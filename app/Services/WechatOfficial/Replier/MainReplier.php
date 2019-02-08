@@ -28,4 +28,20 @@ class MainReplier
             return $replier->send($app, $params);
         }
     }
+
+    public function getReplied($params, $type)
+    {
+        if(isset(UserEventType::$replier[$type]))
+        {
+
+            $class = UserEventType::$replier[$type];
+
+            /**
+             * @var AbstractReplier $replier
+             */
+            $replier = new $class();
+
+            return $replier->getReplied($params);
+        }
+    }
 }

@@ -150,5 +150,12 @@ class WechatOfficialService
 
         return $replier->send($app, $params, $type);
     }
+
+    public function getReplied($type, $params)
+    {
+        $replier = new MainReplier();
+
+        return $replier->getReplied($params, $type);
+    }
     
 }
