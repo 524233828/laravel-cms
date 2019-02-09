@@ -95,6 +95,7 @@ class WechatLogic extends Logic
                     $log->addDebug("receivers",$receivers);
                     foreach ($receivers as $receiver)
                     {
+                        $log->addDebug("strpos:".strpos($text,$receiver['content']));
                         if(strpos($text,$receiver['content'])!==false)
                         {
                             return $receive_handler->handle(
