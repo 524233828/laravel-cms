@@ -12,14 +12,11 @@ namespace App\Api\Logic;
 use App\Api\Constant\ErrorCode;
 use App\Models\WechatOfficialAccount;
 use App\Models\WechatReceivedEvent;
-use App\Models\WechatReceivedReply;
 use App\Models\WechatReceivedText;
 use App\Models\WechatUserEvent;
 use App\Services\WechatOfficial\Constant\UserEventType;
 use App\Services\WechatOfficial\Receiver\MainReceiver;
 use App\Services\WechatOfficial\WechatOfficialService;
-use App\User;
-use Illuminate\Database\Eloquent\Model;
 
 class WechatLogic extends Logic
 {
