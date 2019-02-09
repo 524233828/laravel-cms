@@ -92,7 +92,6 @@ class WechatLogic extends Logic
 
                     //半匹配需要获取所有当前公众号的配置去匹配
                     $receivers = WechatReceivedText::where(["wx_app_id" =>$wx_app_id,"type" => 0])->all();
-                    $log->addDebug("receiver".serialize($receivers));
                     foreach ($receivers as $receiver)
                     {
                         if(strpos($text,$receiver['content'])!==false)
