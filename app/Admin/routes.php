@@ -38,7 +38,9 @@ Route::group([
     $router->resource('/wechat_user_event_types', 'WechatUserEventTypeController');
     $router->resource('/wechat_reply_texts', 'WechatReplyTextController');
     $router->resource('app.wechat_received_texts', 'WechatReceivedTextController');
+    $router->resource('app.wechat_received_events', 'WechatReceivedEventController');
     $router->resource('received.reply', 'WechatReceivedReplyController');
+    $router->resource('received_event.reply', 'WechatReceivedEventReplyController');
     $router->post("/wechat_menu/create/{wx_app_id}", 'WechatMenuController@menuCreate');
     $router->resource('wx_app_id.wechat_menus', 'WechatMenuController');
     $router->post('/wechat_menus/{menu_id}/configs/{config_id}', 'WechatMenuConfigController@store');

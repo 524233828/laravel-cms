@@ -9,6 +9,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Extensions\Actions\WechatMenu;
+use App\Admin\Extensions\Actions\WechatReceivedEvent;
 use App\Admin\Extensions\Actions\WechatReceivedText;
 use App\Models\WechatOfficialAccount;
 use App\Http\Controllers\Controller;
@@ -105,6 +106,7 @@ class WechatOfficialAccountController extends Controller
 
                 $actions->append(new WechatMenu($actions->getResource(), $actions->getKey()));
                 $actions->append(new WechatReceivedText($actions->getResource(), $actions->getKey()));
+                $actions->append(new WechatReceivedEvent($actions->getResource(), $actions->getKey()));
             });
 
 

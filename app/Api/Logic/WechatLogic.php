@@ -11,10 +11,12 @@ namespace App\Api\Logic;
 
 use App\Api\Constant\ErrorCode;
 use App\Models\WechatOfficialAccount;
+use App\Models\WechatReceivedEvent;
 use App\Models\WechatReceivedReply;
 use App\Models\WechatReceivedText;
 use App\Models\WechatUserEvent;
 use App\Services\WechatOfficial\Constant\UserEventType;
+use App\Services\WechatOfficial\Receiver\MainReceiver;
 use App\Services\WechatOfficial\WechatOfficialService;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -68,6 +70,7 @@ class WechatLogic extends Logic
             $result = $event->save();
             $log = myLog("wechat_index");
             $log->addDebug("message",$message);
+            $receive_handler = new MainReceiver();
             switch ($message['MsgType'])
             {
                 case UserEventType::$alias[UserEventType::TEXT]:
@@ -79,7 +82,12 @@ class WechatLogic extends Logic
                     $log->addDebug("receiver".serialize($receiver));
                     if(!empty($receiver))
                     {
-                        return $this->replyText($receiver->id, $wx_app_id, $message['FromUserName']);
+                        return $receive_handler->handle(
+                            $receiver->id,
+                            $wx_app_id,
+                            $message['FromUserName'],
+                            UserEventType::TEXT
+                        );
                     }
 
                     //半匹配需要获取所有当前公众号的配置去匹配
@@ -89,10 +97,34 @@ class WechatLogic extends Logic
                     {
                         if(strpos($text,$receiver['content'])!==false)
                         {
-                            return $this->replyText($receiver->id, $wx_app_id, $message['FromUserName']);
+                            return $receive_handler->handle(
+                                $receiver->id,
+                                $wx_app_id,
+                                $message['FromUserName'],
+                                UserEventType::TEXT
+                            );
                         }
                     }
                     break;
+                case UserEventType::$alias[UserEventType::EVENT]:
+
+                    $where['wx_app_id'] = $wx_app_id;
+                    if(isset($message['Event'])){
+                        $where['event'] = $message['Event'];
+                    }
+
+                    if(isset($message['EventKey'])){
+                        $where['event_key'] = $message['EventKey'];
+                    }
+
+                    $receiver = WechatReceivedEvent::where($where)->first();
+
+                    return $receive_handler->handle(
+                        $receiver->id,
+                        $wx_app_id,
+                        $message['FromUserName'],
+                        UserEventType::EVENT
+                    );
                 default:
                     return '';
 
@@ -103,72 +135,5 @@ class WechatLogic extends Logic
         });
 
         return $response;
-    }
-
-    protected function replyText($received_id, $wx_app_id, $openid)
-    {
-        $log = myLog("custom_send");
-        //获取所有响应者
-        $received_reply = WechatReceivedReply::where("received_id", $received_id)->get()->toArray();
-        $log->addDebug("received_reply".json_encode($received_reply));
-
-        //根据类型分类
-        $type_index_reply_id = [];
-        //类型-响应者ID=>对象数组
-        $type_reply_id_index = [];
-        foreach($received_reply as $value)
-        {
-            $type_index_reply_id[$value['type']][] = $value['reply_id'];
-            $type_reply_id_index[$value['type']][$value['reply_id']] = $value;
-        }
-
-        $log->addDebug("type_index_reply_id".json_encode($type_index_reply_id));
-        $log->addDebug("type_reply_id_index".json_encode($type_reply_id_index));
-        //获取所有响应者
-        $replier = [];
-        foreach ($type_index_reply_id as $type => $ids)
-        {
-            if(isset(UserEventType::$replier_model[$type]))
-            {
-
-                $class = UserEventType::$replier_model[$type];
-                /**
-                 * @var Model $model
-                 */
-                $model = new $class();
-                $log->addDebug("ids".json_encode($ids));
-                $reply = $model->whereIn("id", $ids)->get()->all();
-                $log->addDebug("reply".json_encode($reply));
-
-                foreach ($reply as &$item)
-                {
-                    $item['type'] = $type_reply_id_index[$type][$item['id']]['type'];
-                    $item['sort'] = $type_reply_id_index[$type][$item['id']]['sort'];
-                }
-
-                $replier = array_merge($replier, $reply);
-
-            }
-        }
-
-        //排序
-        $replier = array_values(collect($replier)->sortByDesc("sort")->all());
-
-        //弹出最后一个消息用于被动回复
-        $been_replied = array_pop($replier);
-
-        $log->addDebug("replier:".json_encode($replier));
-        //发送
-        $sdk = new WechatOfficialService();
-//        foreach ($replier as $item)
-//        {
-//            $log->addDebug("wx_app_id:".$wx_app_id);
-//            $log->addDebug("type:". $item['type']);
-//            $result = $sdk->sendCustom($wx_app_id, $item['type'], $item->toArray(), $openid);
-//
-//            $log->addDebug("send_Result:", $result->toArray());
-//        }
-
-        return $sdk->getReplied($been_replied['type'], $been_replied->toArray());
     }
 }

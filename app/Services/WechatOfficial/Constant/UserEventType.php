@@ -9,6 +9,8 @@
 namespace App\Services\WechatOfficial\Constant;
 
 
+use App\Models\WechatReceivedEventReply;
+use App\Models\WechatReceivedReply;
 use App\Models\WechatReplyText;
 use App\Services\WechatOfficial\Replier\TextReplier;
 
@@ -25,6 +27,7 @@ class UserEventType
 
     public static $alias = [
         self::TEXT => "text",
+        self::EVENT => "event",
     ];
 
     public static $replier_model = [
@@ -33,5 +36,10 @@ class UserEventType
 
     public static $replier = [
         self::TEXT => TextReplier::class,
+    ];
+
+    public static $connector_model = [
+        self::TEXT => WechatReceivedReply::class,
+        self::EVENT => WechatReceivedEventReply::class,
     ];
 }
