@@ -46,5 +46,13 @@ Route::group([
     $router->post('/wechat_menus/{menu_id}/configs/{config_id}', 'WechatMenuConfigController@store');
     $router->resource('wechat_menus.configs', 'WechatMenuConfigController');
 
+    //测算系统管理
+    $router->resource('/fc_channel', 'FcChannelController');
+    $router->resource('/fc_forecast', 'FcForecastController');
+    $router->resource('/fc_forecast_channel', 'FcForecastChannelController');
+    $router->resource('/fc_order', 'FcOrderController');
+    $router->resource('/fc_user_forecast', 'FcUserForecastController');
+
+
 
 });

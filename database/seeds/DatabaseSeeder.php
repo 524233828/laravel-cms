@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use JoseChan\Payment\Models\PaymentType as PaymentTypeModel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+
+         $this->call([
+             PaymentTypeConfigSeeder::class,
+             PaymentTypeSeeder::class,
+             MenuSeeder::class,
+         ]);
     }
 }

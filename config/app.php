@@ -160,6 +160,16 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * laravel-admin providers
+         */
+        \JoseChan\Payment\PaymentServiceProvider::class,
+
+        /**
+         * user providers
+         */
+        \JoseChan\Payment\ApiServiceProvider::class,
+
     ],
 
     /*

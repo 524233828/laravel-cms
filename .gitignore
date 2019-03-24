@@ -13,3 +13,4 @@ yarn-error.log
 .env
 /runtime
 /Excel
+/admin_extension

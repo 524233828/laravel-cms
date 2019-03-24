@@ -154,8 +154,13 @@ return [
 
     /*
      * Settings for extensions.
+     *
      */
     'extensions' => [
-
+        "payment"=>[
+            "enable" => true,
+        ]
     ],
+
+    'extension_dir' => base_path("admin_extension")
 ];

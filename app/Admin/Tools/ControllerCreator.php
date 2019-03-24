@@ -123,8 +123,12 @@ class ControllerCreator
             $search[] = $this->replace_prev.$key.$this->replace_next;
             $replace[] = $value;
         }
+        try{
+            return str_replace($search, $replace, $string);
+        }catch (\Exception $e){
 
-        return str_replace($search, $replace, $string);
+        }
+
     }
 
     /**
@@ -243,6 +247,7 @@ class ControllerCreator
     protected function getFieldType($type)
     {
         $explode = explode('(', $type);
+        var_dump(trim($explode[0]));
         return trim($explode[0]);
     }
 

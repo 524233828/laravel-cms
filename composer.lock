@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "da58a000f9fcadd237fab575e4b243a7",
+    "content-hash": "4141912d01c42e96545e8ba45eaea619",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -543,23 +543,23 @@
         },
         {
             "name": "encore/laravel-admin",
-            "version": "v1.5.19",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/z-song/laravel-admin.git",
-                "reference": "9841d34ca028cb151c54aa9988bb3f783839fa2a"
+                "reference": "f9d42460b31b07e1f2d2c05fffca15c3d09bf655"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/9841d34ca028cb151c54aa9988bb3f783839fa2a",
-                "reference": "9841d34ca028cb151c54aa9988bb3f783839fa2a",
+                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/f9d42460b31b07e1f2d2c05fffca15c3d09bf655",
+                "reference": "f9d42460b31b07e1f2d2c05fffca15c3d09bf655",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "2.*",
                 "laravel/framework": "~5.5",
                 "php": ">=7.0.0",
-                "symfony/dom-crawler": "~3.1"
+                "symfony/dom-crawler": "~3.1|~4.0"
             },
             "require-dev": {
                 "fzaninotto/faker": "~1.4",
@@ -610,7 +610,7 @@
                 "grid",
                 "laravel"
             ],
-            "time": "2018-08-22T11:27:57+00:00"
+            "time": "2018-09-09T08:40:17+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -982,6 +982,60 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "jose-chan/payment",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ILoveJoseM/payment.git",
+                "reference": "f6767cf6283540d4889bade4d44012ad362a0991"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ILoveJoseM/payment/zipball/f6767cf6283540d4889bade4d44012ad362a0991",
+                "reference": "f6767cf6283540d4889bade4d44012ad362a0991",
+                "shasum": ""
+            },
+            "require": {
+                "encore/laravel-admin": "~1.6",
+                "php": ">=7.0.0",
+                "runner/nezha-cashier": "^1.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JoseChan\\Payment\\PaymentServiceProvider",
+                        "JoseChan\\Payment\\ApiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JoseChan\\Payment\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JoseChan",
+                    "email": "524233828@qq.com"
+                }
+            ],
+            "description": "laravel-admin extension for payments",
+            "homepage": "https://github.com/jose-chan/payment",
+            "keywords": [
+                "extension",
+                "laravel-admin"
+            ],
+            "time": "2019-02-15T08:57:24+00:00"
         },
         {
             "name": "laravel/framework",
@@ -1935,6 +1989,98 @@
             "time": "2019-01-02T04:42:54+00:00"
         },
         {
+            "name": "phpseclib/phpseclib",
+            "version": "2.0.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpseclib/phpseclib.git",
+                "reference": "8ebfcadbf30524aeb75b2c446bc2519d5b321478"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/8ebfcadbf30524aeb75b2c446bc2519d5b321478",
+                "reference": "8ebfcadbf30524aeb75b2c446bc2519d5b321478",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phing/phing": "~2.7",
+                "phpunit/phpunit": "^4.8.35|^5.7|^6.0",
+                "sami/sami": "~2.0",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "suggest": {
+                "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
+                "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
+                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
+                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "phpseclib/bootstrap.php"
+                ],
+                "psr-4": {
+                    "phpseclib\\": "phpseclib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Wigginton",
+                    "email": "terrafrost@php.net",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Patrick Monnerat",
+                    "email": "pm@datasphere.ch",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Andreas Fischer",
+                    "email": "bantu@phpbb.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Hans-Jürgen Petrich",
+                    "email": "petrich@tronic-media.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+            "homepage": "http://phpseclib.sourceforge.net",
+            "keywords": [
+                "BigInteger",
+                "aes",
+                "asn.1",
+                "asn1",
+                "blowfish",
+                "crypto",
+                "cryptography",
+                "encryption",
+                "rsa",
+                "security",
+                "sftp",
+                "signature",
+                "signing",
+                "ssh",
+                "twofish",
+                "x.509",
+                "x509"
+            ],
+            "time": "2019-01-27T19:37:29+00:00"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v3.2.3",
             "source": {
@@ -2469,6 +2615,47 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "runner/nezha-cashier",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnerLee/nezha-cashier.git",
+                "reference": "aa7eac3b1276490c7a8ef13670faa9845aecf3ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnerLee/nezha-cashier/zipball/aa7eac3b1276490c7a8ef13670faa9845aecf3ab",
+                "reference": "aa7eac3b1276490c7a8ef13670faa9845aecf3ab",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "php": ">=7.1",
+                "symfony/options-resolver": "^4.0",
+                "wangjian/pingan_pay": "^0.2.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runner\\NezhaCashier\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "RunnerLee",
+                    "email": "runnerleer@gmail.com"
+                }
+            ],
+            "time": "2018-07-26T07:51:22+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3166,6 +3353,60 @@
             "time": "2019-01-06T16:19:23+00:00"
         },
         {
+            "name": "symfony/options-resolver",
+            "version": "v4.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/options-resolver.git",
+                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/831b272963a8aa5a0613a1a7f013322d8161bbbb",
+                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\OptionsResolver\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony OptionsResolver Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "config",
+                "configuration",
+                "options"
+            ],
+            "time": "2019-01-16T21:31:25+00:00"
+        },
+        {
             "name": "symfony/polyfill-ctype",
             "version": "v1.10.0",
             "source": {
@@ -3829,6 +4070,51 @@
                 "environment"
             ],
             "time": "2018-10-30T17:29:25+00:00"
+        },
+        {
+            "name": "wangjian/pingan_pay",
+            "version": "0.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wangsir0624/pingan_pay.git",
+                "reference": "efe8e6e4f2f915ddf658b3b44de0fcb5bdcc7716"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wangsir0624/pingan_pay/zipball/efe8e6e4f2f915ddf658b3b44de0fcb5bdcc7716",
+                "reference": "efe8e6e4f2f915ddf658b3b44de0fcb5bdcc7716",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "phpseclib/phpseclib": "^2.0",
+                "symfony/options-resolver": "^4.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wangjian\\PinganPay\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wangjian",
+                    "email": "1636801376@qq.com"
+                }
+            ],
+            "description": "平安银行支付SDK",
+            "keywords": [
+                "pay",
+                "pingan bank"
+            ],
+            "time": "2018-06-22T03:48:22+00:00"
         }
     ],
     "packages-dev": [
