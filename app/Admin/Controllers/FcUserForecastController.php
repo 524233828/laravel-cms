@@ -16,7 +16,9 @@ use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
+use Encore\Admin\Layout\Row;
 use Illuminate\Database\Eloquent\Builder;
 
 class FcUserForecastController extends Controller
@@ -38,6 +40,42 @@ class FcUserForecastController extends Controller
                 ['text' => '首页', 'url' => '/'],
                 ['text' => '测算订单管理', 'url' => '/fc_user_forecast']
             );
+
+            $content->body(function(Row $row){
+                $row->column(3,function(Column $column){
+                    $column->append("已支付金额：");
+                });
+
+                $row->column(3,function(Column $column){
+                    $column->append("未支付金额：");
+                });
+
+                $row->column(3,function(Column $column){
+                    $column->append("已支付订单数：");
+                });
+
+                $row->column(3,function(Column $column){
+                    $column->append("未支付订单数：");
+                });
+            });
+
+            $content->body(function(Row $row){
+                $row->column(3,function(Column $column){
+                    $column->append("pv：");
+                });
+
+                $row->column(3,function(Column $column){
+                    $column->append("uv：");
+                });
+
+                $row->column(3,function(Column $column){
+                    $column->append("下单率：");
+                });
+
+                $row->column(3,function(Column $column){
+                    $column->append("转化率：");
+                });
+            });
 
             $content->body($this->grid());
         });
@@ -118,7 +156,7 @@ HTML;
                 return date("Y-m-d H:i:s", $value);
             })->sortable();
             $grid->column("update_time","支付时间");
-            $grid->column("order.channel","渠道号");
+            $grid->column("channel","渠道号");
             $grid->column("status","状态")->using([0=>'未付款',1=>'已付款']);
 
 
@@ -129,15 +167,9 @@ HTML;
 
                 $filter->equal("id","id");
                 $filter->equal("forecast_id","测算")->select($this->getForecast());
-//                $filter->where(function (Builder $query) {
-//                    $query->leftJoin(
-//                        "fc_order",
-//                        "fc_order.order_id",
-//                        "=",
-//                        "fc_user_forecast.order_id"
-//                    )
-//                        ->where('fc_order.channel', 'like', "{$this->input}%");
-//                }, '渠道标识');
+                $filter->where(function (Builder $query) {
+
+                }, '渠道标识');
 
                 $filter->where(function ($query) {
                     $query->where('order_id', 'like', "{$this->input}%");
