@@ -142,14 +142,14 @@ class Statistic extends Model
             //第二行的表头
             [
                 "pay_fee" => "下单率",
-                "pay_order" => "转化率",
                 "total_fee" => "pv",
+                "pay_order" => "转化率",
                 "total_order" => "uv",
             ],
             [
                 "pay_fee" => $uv == 0 ? 0 : bcmul(bcdiv($total_order, $uv, 4), 100,2) . "%",
-                "pay_order" => $total_order == 0 ? 0 : bcmul(bcdiv($pay_order, $total_order, 4), 100,2) . "%",
                 "total_fee" => $pv,
+                "pay_order" => $total_order == 0 ? 0 : bcmul(bcdiv($pay_order, $total_order, 4), 100,2) . "%",
                 "total_order" => $uv,
             ],
         ]);
