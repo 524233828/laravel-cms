@@ -59,7 +59,7 @@ class Statistic extends Model
         if($channel = FcUserForecast::getCurrentChannel())
         {
             $this->query->whereIn("fc_order.channel", $channel);
-            $statistic_where = ["channel", "IN", "(".implode(",", $channel).")"];
+            $statistic_where[] = ["channel", "IN", "(".implode(",", $channel).")"];
         }
 
 
