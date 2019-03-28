@@ -25,7 +25,7 @@ class BdtjStatistic extends Command
      *
      * @var string
      */
-    protected $signature = 'bdtj:statistic {--day=*}';
+    protected $signature = 'bdtj:statistic {--day=*} {--site_id=*}';
 
     /**
      * The console command description.
@@ -54,11 +54,13 @@ class BdtjStatistic extends Command
     public function handle()
     {
 
-        $day = $this->hasOption("day") ?
+        $day = isset($this->option("day")[0]) ?
             date('Ymd',strtotime($this->option("day")[0])) :
             date('Ymd', strtotime('yesterday'));
-        $site_id = $this->hasOption("site_id") ? $this->option("site_id")[0] : 13186253;
+        $site_id = isset($this->option("site_id")[0]) ? $this->option("site_id")[0] : 13186253;
 
+
+        dd($day);
         $day = date('Ymd',strtotime($day));
 
         $_SERVER['HTTP_USER_AGENT'] = "";
