@@ -59,8 +59,6 @@ class BdtjStatistic extends Command
             date('Ymd', strtotime('yesterday'));
         $site_id = isset($this->option("site_id")[0]) ? $this->option("site_id")[0] : 13186253;
 
-
-        dd($day);
         $day = date('Ymd',strtotime($day));
 
         $_SERVER['HTTP_USER_AGENT'] = "";
