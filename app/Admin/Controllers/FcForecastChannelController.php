@@ -94,7 +94,7 @@ class FcForecastChannelController extends Controller
 
             $grid->column("id","ID")->sortable();
             $grid->column("forecast.forecast_name","测算")->sortable();
-            $grid->column("channel","渠道标识");
+            $grid->column("channel","渠道标识")->sortable();
             $grid->column("channels.channel_name","渠道名称");
             $grid->column("amount","渠道价格")->sortable();
             $grid->column("status","状态")->using([0=>'冻结',1=>'启用']);
@@ -129,10 +129,10 @@ class FcForecastChannelController extends Controller
         return Admin::form(FcForecastChannel::class, function (Form $form) {
 
             $form->display('id',"自增ID");
-            $form->text('forecast_id',"测算ID")->rules("required|integer");
+            $form->select('forecast_id',"测算ID")->options($this->getForecast())->rules("required|integer");
             $form->text('channel',"渠道标识")->rules("required|string");
             $form->text('amount',"渠道价格")->rules("required");
-            $form->select("status","状态")->options([0=>'冻结',1=>'启用']);
+            $form->select("status","状态")->options([0=>'冻结',1=>'启用'])->default(1);
 
 //            $form->text('create_time',"创建时间")->rules("required|integer");
 //            $form->text('update_time',"更新时间戳")->rules("required|integer");
