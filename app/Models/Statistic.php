@@ -56,10 +56,10 @@ class Statistic extends Model
         $where = [];
         $statistic_where = [];
 
-        if($channel = FcUserForecast::getCurrentChannel())
+        if($my_channels = FcUserForecast::getCurrentChannel())
         {
-            $this->query->whereIn("fc_order.channel", $channel);
-            $statistic_where[] = ["channel", "IN", "(".implode(",", $channel).")"];
+            $this->query->whereIn("fc_order.channel", $my_channels);
+//            $statistic_where[] = ["channel", "IN", "(".implode(",", $channel).")"];
         }
 
 
@@ -134,7 +134,13 @@ class Statistic extends Model
         $total_order = $pay_order + $non_pay_order;
 
         //获取百度统计pv、uv
-        $bdtj = BdtjStatistic::where($statistic_where)->selectRaw("sum(`pv`) as pv, sum(`uv`) as uv")->get();
+        $bdtj = BdtjStatistic::where($statistic_where);
+
+        if($my_channels){
+            $bdtj->whereIn("channel", $my_channels);
+        }
+
+        $bdtj = $bdtj->selectRaw("sum(`pv`) as pv, sum(`uv`) as uv")->get();
 
         $pv = $bdtj[0]->pv;
         $uv = $bdtj[0]->uv;
