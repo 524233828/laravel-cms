@@ -28,3 +28,5 @@ Route::get("/wechat/access_token","WechatController@getAccessToken");
 Route::post("/wechat/index","WechatController@index");
 Route::get("/wechat/index","WechatController@index");
 Route::get("/admin/reply","AdminController@reply");
+
+Route::get("/index", "IndexController@index");

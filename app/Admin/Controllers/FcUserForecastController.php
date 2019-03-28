@@ -12,6 +12,8 @@ use App\Admin\Lang\ForecastExtra;
 use App\Models\FcForecast;
 use App\Models\FcUserForecast;
 use App\Http\Controllers\Controller;
+use App\Models\Statistic;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
@@ -20,6 +22,8 @@ use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class FcUserForecastController extends Controller
 {
@@ -28,6 +32,12 @@ class FcUserForecastController extends Controller
 
     public function index()
     {
+
+        //把当前权限放入容器
+        $uid = Admin::user()->id;
+        $role = DB::table("admin_role_users")->where(["user_id" => $uid])->get();
+        app()->instance("current_role", $role[0]);
+
         return Admin::content(function (Content $content) {
 
             //页面描述
@@ -41,43 +51,9 @@ class FcUserForecastController extends Controller
                 ['text' => '测算订单管理', 'url' => '/fc_user_forecast']
             );
 
-            $content->body(function(Row $row){
-                $row->column(3,function(Column $column){
-                    $column->append("已支付金额：");
-                });
+             $content->body($this->statistic());
 
-                $row->column(3,function(Column $column){
-                    $column->append("未支付金额：");
-                });
-
-                $row->column(3,function(Column $column){
-                    $column->append("已支付订单数：");
-                });
-
-                $row->column(3,function(Column $column){
-                    $column->append("未支付订单数：");
-                });
-            });
-
-            $content->body(function(Row $row){
-                $row->column(3,function(Column $column){
-                    $column->append("pv：");
-                });
-
-                $row->column(3,function(Column $column){
-                    $column->append("uv：");
-                });
-
-                $row->column(3,function(Column $column){
-                    $column->append("下单率：");
-                });
-
-                $row->column(3,function(Column $column){
-                    $column->append("转化率：");
-                });
-            });
-
-            $content->body($this->grid());
+             $content->body($this->grid());
         });
     }
 
@@ -102,6 +78,7 @@ class FcUserForecastController extends Controller
             );
 
             $content->body($this->form()->edit($id));
+
         });
     }
 
@@ -133,7 +110,7 @@ class FcUserForecastController extends Controller
         return Admin::grid(FcUserForecast::class, function (Grid $grid) {
 
             $grid->column("id","id")->sortable();
-            $grid->column("forecast.forecast_name","测算");
+            $grid->column("forecast_name","测算");
             $grid->column("order_id","订单号")->sortable();
             $grid->column("extra","用户信息")->display(function ($value)
             {
@@ -165,29 +142,90 @@ HTML;
             //TODO: 使用模糊查询必须通过搜索引擎，此处请扩展搜索引擎
             $grid->filter(function (Grid\Filter $filter){
 
-                $filter->equal("id","id");
-                $filter->equal("forecast_id","测算")->select($this->getForecast());
-                $filter->where(function (Builder $query) {
 
-                }, '渠道标识');
+                $filter->column(1/2, function (Grid\Filter $filter){
+                    $filter->where(function(\Illuminate\Database\Query\Builder &$query)
+                    {
+                        /**
+                         * @var Grid\Filter\Where $this
+                         */
+//                    var_dump($this);exit;
 
-                $filter->where(function ($query) {
-                    $query->where('order_id', 'like', "{$this->input}%");
-                }, '订单号');
-                $filter->equal("update_time", "支付时间")->datetime(['format' => 'YYYY-MM-DD']);
+                        $query->where(["fc_user_forecast.forecast_id" => $this->input]);
 
-                $filter->where(function (Builder $query){
+//                    var_dump($query->toSql());
+//                    return $query;
 
-                    /**
-                     * @var Grid\Filter\Where $this
-                     */
-                    $start_time = strtotime($this->input);
+                    }, "测算", "forecast_id")->select($this->getForecast());
 
-                    $end_time = strtotime($this->input."+1 day");
 
-                    $query->whereBetween('update_time', [$start_time, $end_time]);
-                },"支付时间")->datetime(['format' => 'YYYY-MM-DD']);
-                $filter->equal("status","状态")->select([0=>'未付款',1=>'已付款']);
+                    if(!$current_channel = FcUserForecast::getCurrentChannel()){
+                        $filter->where(function(\Illuminate\Database\Query\Builder &$query)
+                        {
+
+                            $query->where("fc_order.channel", "=", $this->input);
+
+                        }, '渠道标识', "channel");
+                    }else{
+                        $filter->where(function(\Illuminate\Database\Query\Builder &$query)
+                        {
+
+                            $query->where("fc_order.channel", "=", $this->input);
+
+                        }, '渠道标识', "channel")->select($current_channel);
+                    }
+
+                });
+
+
+                $filter->column(1/2, function (Grid\Filter $filter){
+
+
+                    $filter->where(function(\Illuminate\Database\Query\Builder &$query)
+                    {
+
+                        $start_time = strtotime($this->input);
+
+                        $end_time = strtotime($this->input."+1 day");
+
+                        $query->whereBetween("fc_order.create_time", [$start_time, $end_time]);
+
+//                    return $query;
+
+                    }, "下单时间", "create_time")->datetime(['format' => 'YYYY-MM-DD']);
+
+                    $filter->where(function(\Illuminate\Database\Query\Builder &$query)
+                    {
+                        $start_time = strtotime($this->input);
+
+                        $end_time = strtotime($this->input."+1 day");
+
+                        $query->whereBetween("fc_order.pay_time", [$start_time, $end_time]);
+
+//                    return $query;
+
+                    },"支付时间", "pay_time")->datetime(['format' => 'YYYY-MM-DD']);
+                });
+
+
+                $filter->column(1/2, function (Grid\Filter $filter){
+
+                    $filter->where(function(\Illuminate\Database\Query\Builder &$query)
+                    {
+                        $query->where("fc_order.order_id", "=", $this->input);
+
+//                    return $query;
+
+                    }, '订单号', "order_id");
+
+                    $filter->where(function(\Illuminate\Database\Query\Builder &$query)
+                    {
+                        $query->where("fc_order.status", "=", $this->input);
+
+//                    return $query;
+
+                    },"状态", "status")->select([0=>'未付款',1=>'已付款']);
+                });
 
             });
 
@@ -208,8 +246,24 @@ HTML;
             $form->datetime('update_time',"更新时间");
             $form->select("status","状态")->options([0=>'未付款',1=>'已付款']);
 
+        });
+    }
 
+    public function statistic()
+    {
+        return Admin::grid(Statistic::class, function(Grid $grid){
 
+            $grid->disableActions();
+            $grid->disableFilter();
+            $grid->disableCreateButton();
+            $grid->disablePagination();
+            $grid->disableExport();
+            $grid->disableRowSelector();
+
+            $grid->column("pay_fee", "已支付金额");
+            $grid->column("total_fee", "总金额");
+            $grid->column("pay_order", "已支付订单数");
+            $grid->column("total_order", "总订单数");
         });
     }
 
@@ -225,4 +279,5 @@ HTML;
 
         return $data_options;
     }
+
 }

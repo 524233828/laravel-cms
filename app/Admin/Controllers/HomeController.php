@@ -17,10 +17,10 @@ class HomeController extends Controller
 
         return Admin::content(function (Content $content) {
 
-            $content->header('Dashboard');
-            $content->description('Description...');
+            $content->header('首页');
+            $content->description('欢迎使用测算后台');
 
-            $content->row(Dashboard::title());
+            $content->row(view('admin.title'));
 
             $content->row(function (Row $row) {
 

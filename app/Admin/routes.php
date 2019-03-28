@@ -52,6 +52,12 @@ Route::group([
     $router->resource('/fc_forecast_channel', 'FcForecastChannelController');
     $router->resource('/fc_order', 'FcOrderController');
     $router->resource('/fc_user_forecast', 'FcUserForecastController');
+    $router->resource('/fc_admin_channels', 'FcAdminChannelController');
+
+    //百度统计
+    $router->resource('/bdtj_sites', 'BdtjSiteController');
+    $router->resource('/bdtj_pages', 'BdtjPageController');
+    $router->post('/bdtj_sites/fetch', 'BdtjSiteController@fetchSite');
 
 
 

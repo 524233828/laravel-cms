@@ -170,6 +170,11 @@ return [
          */
         \JoseChan\Payment\ApiServiceProvider::class,
 
+        /**
+         * 百度统计
+         */
+        Mushan\BaiduTongji\BaiduTongjiServiceProvider::class,
+
     ],
 
     /*

@@ -113,7 +113,7 @@ class FcOrderController extends Controller
                 $action->disableEdit();
             });
 //            $grid->column("paysource","支付来源0-微信 1-小程序");
-
+            $grid->model()->orderBy("id", "desc");
 
             //允许筛选的项
             //筛选规则不允许用like，且搜索字段必须为索引字段
