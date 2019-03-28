@@ -30,9 +30,9 @@ class FcUserForecastController extends Controller
 
     use HasResourceActions;
 
+
     public function index()
     {
-
         //把当前权限放入容器
         $uid = Admin::user()->id;
         $role = DB::table("admin_role_users")->where(["user_id" => $uid])->get();
@@ -136,13 +136,12 @@ HTML;
             $grid->column("channel","渠道号");
             $grid->column("status","状态")->using([0=>'未付款',1=>'已付款']);
 
-
             //允许筛选的项
             //筛选规则不允许用like，且搜索字段必须为索引字段
             //TODO: 使用模糊查询必须通过搜索引擎，此处请扩展搜索引擎
             $grid->filter(function (Grid\Filter $filter){
 
-
+                $filter->expand = true;
                 $filter->column(1/2, function (Grid\Filter $filter){
                     $filter->where(function(\Illuminate\Database\Query\Builder &$query)
                     {
