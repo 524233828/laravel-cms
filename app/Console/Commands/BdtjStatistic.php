@@ -56,7 +56,7 @@ class BdtjStatistic extends Command
 
         $day = $this->hasOption("day") ?
             date('Ymd',strtotime($this->option("day")[0])) :
-            date("Ymd");
+            date('Ymd', strtotime('yesterday'));
         $site_id = $this->hasOption("site_id") ? $this->option("site_id")[0] : 13186253;
 
         $day = date('Ymd',strtotime($day));
