@@ -196,24 +196,24 @@ class Statistic extends Model
         $search_word = [];
 
         if(!empty($forecast_view_uri)){
-            $search_word[] = $forecast_view_uri;
+            $search_word[] = "/".$forecast_view_uri."/index";
             $key .= ":{$forecast_view_uri}";
         }
 
         if(!empty($channel)){
-            $search_word[] = $channel;
+            $search_word[] = "channel=".$channel;
             $key .= ":{$channel}";
         }
 
         $redis = new RedisService([
             "hostname" => env('REDIS_HOST', '127.0.0.1'),
             "port" => env('REDIS_PORT', 6379),
-            "database" => 0,
+            "database" => 1,
             'password' => env('REDIS_PASSWORD', null)
         ]);
 
         if(!empty($search_word)){
-            $option['searchWord'] = implode(" ", $search_word);
+            $option['searchWord'] = implode("?", $search_word);
         }
 
         if($redis->exists($key)){
