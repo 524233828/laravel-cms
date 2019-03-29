@@ -204,12 +204,13 @@ class Statistic extends Model
 
         $redis = Redis::connection("default");
 
+        if(!empty($search_word)){
+            $option['searchWord'] = implode(" ", $search_word);
+        }
+
         if($redis->exists($key)){
             return json_decode($redis->get($key), true);
         }else{
-            if(!empty($search_word)){
-                $option['searchWord'] = implode(" ", $search_word);
-            }
 
             $result = $baiduTongji->getData($option);
 
