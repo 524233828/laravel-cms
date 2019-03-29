@@ -204,9 +204,10 @@ class Statistic extends Model
         }
 
         $redis = new RedisService([
-            "hostname" => "127.0.0.1",
-            "port" => 6379,
-            "database" => 0
+            "hostname" => env('REDIS_HOST', '127.0.0.1'),
+            "port" => env('REDIS_PORT', 6379),
+            "database" => 0,
+            'password' => env('REDIS_PASSWORD', null)
         ]);
 
         if(!empty($search_word)){
