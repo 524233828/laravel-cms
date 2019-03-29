@@ -19,7 +19,7 @@ class FilterDate extends AbstractTool
     public function render()
     {
 
-        $start_time = Request::get("start_time", date("Y-m-d", strtotime("yesterday")));
+        $start_time = Request::get("start_time", date("Y-m-d"));
         $end_time = Request::get("end_time", date("Y-m-d", strtotime($start_time)));
 
         return <<<EOT
