@@ -48,13 +48,13 @@ class Statistic extends Model
         $forecast_id = Request::get("forecast_id", null);
         $channel = Request::get("channel", null);
         $start_time = Request::get("start_time", date("Y-m-d", strtotime("yesterday")));
-        $end_time = Request::get("end_time", date("Y-m-d", strtotime($start_time. "+1 day")));
+        $end_time = Request::get("end_time", date("Y-m-d", strtotime($start_time)));
         $order_id = Request::get("order_id", null);
         $status = Request::get("status", null);
 
         $start_time = strtotime($start_time);
 
-        $end_time = strtotime($end_time);
+        $end_time = strtotime($end_time . "+1 day");
 
         if(!($this->query instanceof Builder)){
             $this->query = $this->newBaseQueryBuilder();

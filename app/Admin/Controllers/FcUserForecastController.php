@@ -8,6 +8,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\Tools\FilterDate;
 use App\Admin\Lang\ForecastExtra;
 use App\Models\FcForecast;
 use App\Models\FcUserForecast;
@@ -194,7 +195,7 @@ HTML;
                     $filter->where(function(\Illuminate\Database\Query\Builder &$query)
                     {
 
-                        $end_time = strtotime($this->input);
+                        $end_time = strtotime($this->input . "+1 day");
 
                         $query->where("fc_order.create_time", "<", $end_time);
 
@@ -248,6 +249,10 @@ HTML;
     public function statistic()
     {
         return Admin::grid(Statistic::class, function(Grid $grid){
+
+            $grid->tools(function (Grid\Tools $tools){
+                $tools->append(new FilterDate());
+            });
 
             $grid->disableActions();
             $grid->disableFilter();
