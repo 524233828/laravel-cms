@@ -9,6 +9,7 @@
 namespace App\Models;
 
 
+use App\Services\RedisService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -202,7 +203,11 @@ class Statistic extends Model
             $key .= ":{$channel}";
         }
 
-        $redis = Redis::connection("default");
+        $redis = new RedisService([
+            "hostname" => "127.0.0.1",
+            "port" => 6379,
+            "database" => 0
+        ]);
 
         if(!empty($search_word)){
             $option['searchWord'] = implode(" ", $search_word);
@@ -214,7 +219,9 @@ class Statistic extends Model
 
             $result = $baiduTongji->getData($option);
 
-            $redis->set($key, json_encode($result), 604800);
+            $result2['sum'] = $result['sum'];
+
+            $redis->setex($key, 604800, json_encode($result2));
 
             return $result;
         }
