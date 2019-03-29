@@ -53,6 +53,7 @@ class BdtjStatistic extends Command
      */
     public function handle()
     {
+        ini_set("memory_limit", "128M");
 
         $day = isset($this->option("day")[0]) ?
             date('Ymd',strtotime($this->option("day")[0])) :
