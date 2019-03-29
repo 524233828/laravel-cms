@@ -53,7 +53,7 @@ class BdtjStatistic extends Command
      */
     public function handle()
     {
-        ini_set("memory_limit", "128M");
+//        ini_set("memory_limit", "128M");
 
         $day = isset($this->option("day")[0]) ?
             date('Ymd',strtotime($this->option("day")[0])) :
@@ -75,13 +75,14 @@ class BdtjStatistic extends Command
             'start_date' => $day,
             'end_date' => $day,
             'metrics' => 'pv_count,visitor_count',
+            'searchWord' => "lath qtt"
         ]);
 
-//        dd($result['items']);
+        dd($result);
 
         $page_list = $result['items'][0];
 
-        //页面信息
+        //页面信息，页面只记录channel这一参数，其他不记录
         $local_pages = BdtjPage::all();
 
         $local_page_id = [];
@@ -148,6 +149,7 @@ class BdtjStatistic extends Command
             }
 
         }
+
 
         DB::table("bdtj_pages")->insert($new_page_list);
 

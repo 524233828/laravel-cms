@@ -12,7 +12,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Request;
+use Mushan\BaiduTongji\BaiduTongji;
 
 class Statistic extends Model
 {
@@ -49,11 +51,15 @@ class Statistic extends Model
         $order_id = Request::get("order_id", null);
         $status = Request::get("status", null);
 
+        $start_time = strtotime($start_time);
+
+        $end_time = strtotime($end_time);
+
         if(!($this->query instanceof Builder)){
             $this->query = $this->newBaseQueryBuilder();
         }
 
-        $bdtj = BdtjStatistic::query();
+//        $bdtj = BdtjStatistic::query();
 
         $where = [];
         $statistic_where = [];
@@ -61,7 +67,7 @@ class Statistic extends Model
         if($my_channels = FcUserForecast::getCurrentChannel())
         {
             $this->query->whereIn("fc_order.channel", $my_channels);
-            $bdtj->whereIn("channel", $my_channels);
+//            $bdtj->whereIn("channel", $my_channels);
 //            $statistic_where[] = ["channel", "IN", "(".implode(",", $channel).")"];
         }
 
@@ -69,45 +75,19 @@ class Statistic extends Model
         if(!empty($forecast_id))
         {
             $where[] = ["fc_user_forecast.forecast_id","=",$forecast_id];
-            $statistic_where[] = ["forecast_id", "=", $forecast_id];
+//            $statistic_where[] = ["forecast_id", "=", $forecast_id];
         }
 
         if(!empty($channel))
         {
             $where[] = ["fc_order.channel","=",$channel];
-            $statistic_where[] = ["channel", "=", $channel];
+//            $statistic_where[] = ["channel", "=", $channel];
         }
 
         if(!empty($start_time) && !empty($end_time))
         {
-
-//            var_dump($create_time['start']);exit;
-
-            $start_time = strtotime($start_time);
-
-            $end_time = strtotime($end_time);
-
             $this->query->whereBetween("fc_order.create_time", [$start_time, $end_time]);
-
-            $bdtj->whereBetween("day", [
-                    date("Ymd", $start_time),
-                    date("Ymd", $end_time),
-                ]
-            );
-//            $where[] = ["fc_order.create_time","between",[$start_time, $end_time]];
-//            $statistic_where[] = ["day", "=", date("Ymd", strtotime($create_time))];
         }
-
-//        if(!empty($pay_time))
-//        {
-//            $start_time = strtotime($pay_time);
-//
-//            $end_time = strtotime($pay_time."+1 day");
-//
-//            $this->query->whereBetween("fc_order.pay_time", [$start_time, $end_time]);
-//            $where[] = ["fc_order.pay_time","=",$pay_time];
-//            $statistic_where[] = ["day", "=", date("Ymd", strtotime($pay_time))];
-//        }
 
         if(!empty($order_id))
         {
@@ -145,12 +125,28 @@ class Statistic extends Model
         $total_order = $pay_order + $non_pay_order;
 
         //获取百度统计pv、uv
-        $bdtj = $bdtj->where($statistic_where);
+//        $bdtj = $bdtj->where($statistic_where);
+//
+//        $bdtj = $bdtj->selectRaw("sum(`pv`) as pv, sum(`uv`) as uv")->get();
+//
+//        $pv = is_null($bdtj[0]->pv) ? 0 : $bdtj[0]->pv;
+//        $uv = is_null($bdtj[0]->uv) ? 0 : $bdtj[0]->uv;
 
-        $bdtj = $bdtj->selectRaw("sum(`pv`) as pv, sum(`uv`) as uv")->get();
+        $forecast_view = null;
+        if(!empty($forecast_id)){
+            $forecast = FcForecast::find($forecast_id);
+            $forecast_view = $forecast->view_uri;
+        }
 
-        $pv = is_null($bdtj[0]->pv) ? 0 : $bdtj[0]->pv;
-        $uv = is_null($bdtj[0]->uv) ? 0 : $bdtj[0]->uv;
+        $result = $this->getBdtjData(
+            date("Ymd", $start_time),
+            date("Ymd", $end_time),
+            $forecast_view,
+            $channel
+        );
+
+        $pv = $result['sum'][0][0];
+        $uv = $result['sum'][0][1];
 
         return collect([
             [
@@ -173,6 +169,56 @@ class Statistic extends Model
                 "total_order" => $uv,
             ],
         ]);
+    }
+
+    public function getBdtjData($start_date,$end_date, $forecast_view_uri = null, $channel = null)
+    {
+        $key = "bdtj:{$start_date}:{$end_date}";
+        $site_id = 13186253;
+
+        $_SERVER['HTTP_USER_AGENT'] = "";
+        /**
+         * @var BaiduTongji $baiduTongji
+         */
+        $baiduTongji = resolve('BaiduTongji');
+
+        $option = [
+            'site_id' => $site_id,
+            'method' => 'visit/toppage/a',
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'metrics' => 'pv_count,visitor_count',
+        ];
+
+        $search_word = [];
+
+        if(!empty($forecast_view_uri)){
+            $search_word[] = $forecast_view_uri;
+            $key .= ":{$forecast_view_uri}";
+        }
+
+        if(!empty($channel)){
+            $search_word[] = $channel;
+            $key .= ":{$channel}";
+        }
+
+        $redis = Redis::connection("default");
+
+        if($redis->exists($key)){
+            return json_decode($redis->get($key), true);
+        }else{
+            if(!empty($search_word)){
+                $option['searchWord'] = implode(" ", $search_word);
+            }
+
+            $result = $baiduTongji->getData($option);
+
+            $redis->set($key, json_encode($result));
+
+            return $result;
+        }
+
+
     }
 
 }
