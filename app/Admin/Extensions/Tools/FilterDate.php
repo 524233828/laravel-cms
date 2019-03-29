@@ -21,6 +21,7 @@ class FilterDate extends AbstractTool
 
         $start_time = Request::get("start_time", date("Y-m-d"));
         $end_time = Request::get("end_time", date("Y-m-d", strtotime($start_time)));
+        $end_time = empty($end_time) ? $start_time : $end_time;
 
         return <<<EOT
         数据日期：{$start_time}~{$end_time}

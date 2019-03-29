@@ -49,6 +49,7 @@ class Statistic extends Model
         $channel = Request::get("channel", null);
         $start_time = Request::get("start_time", date("Y-m-d"));
         $end_time = Request::get("end_time", date("Y-m-d", strtotime($start_time)));
+        $end_time = empty($end_time) ? $start_time : $end_time;
         $order_id = Request::get("order_id", null);
         $status = Request::get("status", null);
 
