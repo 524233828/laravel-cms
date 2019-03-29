@@ -213,7 +213,7 @@ class Statistic extends Model
 
             $result = $baiduTongji->getData($option);
 
-            $redis->set($key, json_encode($result));
+            $redis->set($key, json_encode($result), 604800);
 
             return $result;
         }
