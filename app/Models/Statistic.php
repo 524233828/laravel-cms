@@ -47,7 +47,7 @@ class Statistic extends Model
 
         $forecast_id = Request::get("forecast_id", null);
         $channel = Request::get("channel", null);
-        $start_time = Request::get("start_time", date("Y-m-d", strtotime("yesterday")));
+        $start_time = Request::get("start_time", date("Y-m-d"));
         $end_time = Request::get("end_time", date("Y-m-d", strtotime($start_time)));
         $order_id = Request::get("order_id", null);
         $status = Request::get("status", null);
