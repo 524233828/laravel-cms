@@ -79,6 +79,7 @@ class FcUserForecast extends Model
                 "fc_user_forecast.forecast_id"
             ]);
 
+
         $result = DB::select($this->query->toSql(), $this->query->getBindings());
 
         //获取测算类型
@@ -118,6 +119,8 @@ class FcUserForecast extends Model
         }
 
         $argument($this->query);
+
+//        $this->query->toSql();
 
         return $this;
 

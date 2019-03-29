@@ -44,8 +44,8 @@ class Statistic extends Model
 
         $forecast_id = Request::get("forecast_id", null);
         $channel = Request::get("channel", null);
-        $create_time = Request::get("create_time", null);
-        $pay_time = Request::get("pay_time", null);
+        $start_time = Request::get("start_time", date("Y-m-d", strtotime("yesterday")));
+        $end_time = Request::get("end_time", date("Y-m-d", strtotime($start_time. "+1 day")));
         $order_id = Request::get("order_id", null);
         $status = Request::get("status", null);
 
@@ -53,12 +53,15 @@ class Statistic extends Model
             $this->query = $this->newBaseQueryBuilder();
         }
 
+        $bdtj = BdtjStatistic::query();
+
         $where = [];
         $statistic_where = [];
 
         if($my_channels = FcUserForecast::getCurrentChannel())
         {
             $this->query->whereIn("fc_order.channel", $my_channels);
+            $bdtj->whereIn("channel", $my_channels);
 //            $statistic_where[] = ["channel", "IN", "(".implode(",", $channel).")"];
         }
 
@@ -75,28 +78,36 @@ class Statistic extends Model
             $statistic_where[] = ["channel", "=", $channel];
         }
 
-        if(!empty($create_time))
+        if(!empty($start_time) && !empty($end_time))
         {
 
-            $start_time = strtotime($create_time);
+//            var_dump($create_time['start']);exit;
 
-            $end_time = strtotime($create_time."+1 day");
+            $start_time = strtotime($start_time);
+
+            $end_time = strtotime($end_time);
 
             $this->query->whereBetween("fc_order.create_time", [$start_time, $end_time]);
+
+            $bdtj->whereBetween("day", [
+                    date("Ymd", $start_time),
+                    date("Ymd", $end_time),
+                ]
+            );
 //            $where[] = ["fc_order.create_time","between",[$start_time, $end_time]];
-            $statistic_where[] = ["day", "=", date("Ymd", strtotime($create_time))];
+//            $statistic_where[] = ["day", "=", date("Ymd", strtotime($create_time))];
         }
 
-        if(!empty($pay_time))
-        {
-            $start_time = strtotime($pay_time);
-
-            $end_time = strtotime($pay_time."+1 day");
-
-            $this->query->whereBetween("fc_order.pay_time", [$start_time, $end_time]);
-            $where[] = ["fc_order.pay_time","=",$pay_time];
-            $statistic_where[] = ["day", "=", date("Ymd", strtotime($pay_time))];
-        }
+//        if(!empty($pay_time))
+//        {
+//            $start_time = strtotime($pay_time);
+//
+//            $end_time = strtotime($pay_time."+1 day");
+//
+//            $this->query->whereBetween("fc_order.pay_time", [$start_time, $end_time]);
+//            $where[] = ["fc_order.pay_time","=",$pay_time];
+//            $statistic_where[] = ["day", "=", date("Ymd", strtotime($pay_time))];
+//        }
 
         if(!empty($order_id))
         {
@@ -134,16 +145,12 @@ class Statistic extends Model
         $total_order = $pay_order + $non_pay_order;
 
         //获取百度统计pv、uv
-        $bdtj = BdtjStatistic::where($statistic_where);
-
-        if($my_channels){
-            $bdtj->whereIn("channel", $my_channels);
-        }
+        $bdtj = $bdtj->where($statistic_where);
 
         $bdtj = $bdtj->selectRaw("sum(`pv`) as pv, sum(`uv`) as uv")->get();
 
-        $pv = $bdtj[0]->pv;
-        $uv = $bdtj[0]->uv;
+        $pv = is_null($bdtj[0]->pv) ? 0 : $bdtj[0]->pv;
+        $uv = is_null($bdtj[0]->uv) ? 0 : $bdtj[0]->uv;
 
         return collect([
             [

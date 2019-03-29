@@ -185,27 +185,24 @@ HTML;
 
                         $start_time = strtotime($this->input);
 
-                        $end_time = strtotime($this->input."+1 day");
 
-                        $query->whereBetween("fc_order.create_time", [$start_time, $end_time]);
+                        $query->where("fc_order.create_time",">=", $start_time);
 
-//                    return $query;
 
-                    }, "下单时间", "create_time")->datetime(['format' => 'YYYY-MM-DD']);
+                    }, "下单时间起", "start_time")->datetime(['format' => 'YYYY-MM-DD']);
 
                     $filter->where(function(\Illuminate\Database\Query\Builder &$query)
                     {
-                        $start_time = strtotime($this->input);
 
-                        $end_time = strtotime($this->input."+1 day");
+                        $end_time = strtotime($this->input);
 
-                        $query->whereBetween("fc_order.pay_time", [$start_time, $end_time]);
+                        $query->where("fc_order.create_time", "<", $end_time);
 
-//                    return $query;
 
-                    },"支付时间", "pay_time")->datetime(['format' => 'YYYY-MM-DD']);
+                    },"下单时间止", "end_time")->datetime(['format' => 'YYYY-MM-DD']);
                 });
 
+//                $filter->between("create_time", "下单时间")->datetime(['format' => 'YYYY-MM-DD']);
 
                 $filter->column(1/2, function (Grid\Filter $filter){
 
