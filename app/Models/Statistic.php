@@ -62,29 +62,23 @@ class Statistic extends Model
             $this->query = $this->newBaseQueryBuilder();
         }
 
-//        $bdtj = BdtjStatistic::query();
 
         $where = [];
-        $statistic_where = [];
 
         if($my_channels = FcUserForecast::getCurrentChannel())
         {
             $this->query->whereIn("fc_order.channel", $my_channels);
-//            $bdtj->whereIn("channel", $my_channels);
-//            $statistic_where[] = ["channel", "IN", "(".implode(",", $channel).")"];
         }
 
 
         if(!empty($forecast_id))
         {
             $where[] = ["fc_user_forecast.forecast_id","=",$forecast_id];
-//            $statistic_where[] = ["forecast_id", "=", $forecast_id];
         }
 
         if(!empty($channel))
         {
             $where[] = ["fc_order.channel","=",$channel];
-//            $statistic_where[] = ["channel", "=", $channel];
         }
 
         if(!empty($start_time) && !empty($end_time))

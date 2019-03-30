@@ -53,6 +53,7 @@ Route::group([
     $router->resource('/fc_order', 'FcOrderController');
     $router->resource('/fc_user_forecast', 'FcUserForecastController');
     $router->resource('/fc_admin_channels', 'FcAdminChannelController');
+    $router->resource('/fc_deduct', 'FcDeductController');
 
     //百度统计
     $router->resource('/bdtj_sites', 'BdtjSiteController');
