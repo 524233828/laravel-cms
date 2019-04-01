@@ -80,7 +80,7 @@ class Statistic extends Model
         {
             $where[] = ["fc_order.channel","=",$channel];
         }else if(!empty($my_channels)){
-            $channel = $my_channels[0];
+            $channel = array_values($my_channels)[0];
         }
 
         if(!empty($start_time) && !empty($end_time))
