@@ -128,11 +128,11 @@ class FcChannelController extends Controller
 
             $form->display('id',"渠道号");
             $form->text('channel',"channel")->rules("required|string");
-            $form->text('parent_id',"parent_id")->rules("required|integer");
+//            $form->text('parent_id',"parent_id")->rules("required|integer");
             $form->text('channel_name',"渠道名称")->rules("required|string");
 //            $form->text('create_time',"create_time")->rules("required|integer");
 //            $form->text('update_time',"update_time")->rules("required|integer");
-            $form->select("status","状态 0-冻结 1-可用")->options([0=>'冻结',1=>'启用']);
+            $form->select("status","状态 0-冻结 1-可用")->options([0=>'冻结',1=>'启用'])->default(1);
 
 
 
