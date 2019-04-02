@@ -22,6 +22,12 @@ class FcUserForecast extends Model
 
     protected $table = "fc_user_forecast";
 
+    public $timestamps = false;
+//    const CREATED_AT = "create_time";
+//    const UPDATED_AT = "update_time";
+
+//    protected $dateFormat = "U";
+
     /**
      * @var Builder $query;
      */
@@ -74,7 +80,7 @@ class FcUserForecast extends Model
                 "fc_order.total_fee",
                 "fc_order.channel",
                 "fc_order.status",
-                "fc_order.id",
+                "fc_user_forecast.id",
                 "fc_user_forecast.extra",
                 "fc_user_forecast.forecast_id"
             ]);
@@ -179,4 +185,26 @@ class FcUserForecast extends Model
 
         return false;
     }
+
+//    public function findOrFail($id)
+//    {
+//        if(!($this->query instanceof Builder)){
+//            $this->query = $this->newBaseQueryBuilder();
+//        }
+//
+//        $order = $this->query->from("fc_order")->find($id);
+//
+//        $this->query->wheres = [];
+//        $this->query->setBindings([]);
+//
+//        $data = $this->query->from("fc_user_forecast")
+//        ->where("order_id","=", $order->order_id)->get();
+//
+//        $this->query->wheres = [];
+//        $this->query->setBindings([]);
+//        return parent::findOrFail($data[0]->id);
+//
+//    }
+
+
 }

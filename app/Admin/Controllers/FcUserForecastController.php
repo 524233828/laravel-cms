@@ -236,13 +236,13 @@ HTML;
         return Admin::form(FcUserForecast::class, function (Form $form) {
 
             $form->display('id',"id");
-            $form->text('uid',"uid")->rules("required|integer");
-            $form->text('forecast_id',"测算")->rules("required|integer");
-            $form->text('order_id',"订单号")->rules("required|string");
+//            $form->text('uid',"uid")->rules("required|integer");
+            $form->display('forecast_id',"测算");
+            $form->display('order_id',"订单号");
             $form->text('extra',"用户信息")->rules("required|string");
-            $form->text('create_time',"创建时间")->rules("required|integer");
-            $form->datetime('update_time',"更新时间");
-            $form->select("status","状态")->options([0=>'未付款',1=>'已付款']);
+//            $form->text('create_time',"创建时间")->rules("required|integer");
+//            $form->datetime('update_time',"更新时间");
+//            $form->select("status","状态")->options([0=>'未付款',1=>'已付款']);
 
         });
     }
