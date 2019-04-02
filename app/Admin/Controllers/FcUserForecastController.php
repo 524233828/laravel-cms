@@ -113,6 +113,7 @@ class FcUserForecastController extends Controller
             $grid->column("id","id")->sortable();
             $grid->column("forecast_name","测算");
             $grid->column("order_id","订单号")->sortable();
+            $grid->column("total_fee","订单价格")->sortable();
             $grid->column("extra","用户信息")->display(function ($value)
             {
                 $value = json_decode($value, true);
