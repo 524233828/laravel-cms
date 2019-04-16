@@ -222,7 +222,9 @@ class Statistic extends Model
 
             $result2['sum'] = $result['sum'];
 
-            $redis->setex($key, 604800, json_encode($result2));
+            if(strtotime($end_date)<time()){
+                $redis->setex($key, 604800, json_encode($result2));
+            }
 
             return $result;
         }
