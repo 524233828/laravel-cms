@@ -192,9 +192,11 @@ class Statistic extends Model
         $search_word = [];
 
         if(!empty($forecast_view_uri)){
-            $search_word[] = "/".$forecast_view_uri."/index";
+            $search_word[] = "/".$forecast_view_uri;
             $key .= ":{$forecast_view_uri}";
         }
+
+        $search_word[] = "index";
 
         if(!empty($channel)){
             $search_word[] = $channel;
