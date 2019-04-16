@@ -197,7 +197,7 @@ class Statistic extends Model
         }
 
         if(!empty($channel)){
-            $search_word[] = "channel=".$channel;
+            $search_word[] = $channel;
             $key .= ":{$channel}";
         }
 
@@ -209,7 +209,7 @@ class Statistic extends Model
         ]);
 
         if(!empty($search_word)){
-            $option['searchWord'] = implode("?", $search_word);
+            $option['searchWord'] = implode("/", $search_word);
         }
 
         if($redis->exists($key)){
