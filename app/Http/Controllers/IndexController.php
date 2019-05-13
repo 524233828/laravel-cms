@@ -9,85 +9,213 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Card;
-use App\Models\UserCard;
-use EasyWeChat\Factory;
+use App\Http\View\BreadCrumb;
+use App\Http\View\Container;
+use App\Http\View\Facade\Cms;
+use App\Http\View\Footer;
+use App\Http\View\Module1;
+use App\Http\View\Module10;
+use App\Http\View\Module11;
+use App\Http\View\Module12;
+use App\Http\View\Module2;
+use App\Http\View\Module3;
+use App\Http\View\Module4;
+use App\Http\View\Module6;
+use App\Http\View\Module7;
+use App\Http\View\Module8;
+use App\Http\View\Module9;
+use App\Http\View\ModuleGroup;
+use App\Models\CmsChapterType;
+use App\Models\CmsImage;
+use App\Models\CmsMenu;
 use Illuminate\Http\Request;
 
 class IndexController
 {
-
-    protected $config = [
-        'debug'  => true,
-        'app_id'  => 'wx6443795c16bf53ba',         // AppID
-        'secret'  => '4c774350e2330a277417dbb3c91ee132',     // AppSecret
-        'log' => [
-            'level'      => 'debug',
-            'permission' => 0777,
-            'file'       => '../runtime/logs/easywechat.log',
-        ],
-
-        'oauth' => [
-            'scopes'   => ['snsapi_base'],
-            'callback' => '/oath/callback',
-        ],
-    ];
-
-    public function index(Request $request)
+    public function index()
     {
-        //没有微信ID，静默授权
-        if( null === $wxid = $request->get("wxid")){
-            return $this->wxOauth();
-        }
 
-        $model = new UserCard();
-        $user_card = $model->where(["openid" => $wxid])->first();
+        return Cms::create(function(\App\Http\View\Cms $cms){
 
-        if(!$user_card)
-        {
-            $is_get_card = 0;
-            $card = Card::where(["is_default"=> 1])->get();
-            $card_array = $card->toArray()[0];
-        }else{
+            $title = "首页";
+            $cms->title($title);
 
-            $is_get_card = 1;
-            $user_card_array = $user_card->toArray();
+            $cms->setCss([
+                "css/web/base.css",
+                "css/web/tab.css",
+            ]);
 
-            $card = Card::find($user_card_array['card_id']);
-            $card_array = $card->toArray();
-        }
+            $cms->setJs([
+                "/js/jquery.js",
+            ]);
 
-        $data = [
-            "image_url" => $card_array['image_url'],
-            "card_no" => isset($user_card_array['card_no']) ? $user_card_array['card_no'] : "",
-            "score" => isset($user_card_array['score']) ? $user_card_array['score'] : 0,
-            "is_get_card"=>$is_get_card,
-            "wxid" => $wxid
-        ];
+            $container = $cms->container(function(Container $container) use ($cms){
 
-        return view("index", $data);
+                $container->addChild($cms->header());
+                $container->addChild($cms->menu(CmsMenu::class));
+                $container->addChild($cms->banner(CmsImage::class));
+
+
+                $content = $cms->content();
+                $container->addChild($content);
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module1());
+                $module_group->addChild(new Module2());
+                $content->addChild($module_group);
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module3());
+                $content->addChild($module_group);
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module4());
+                $content->addChild($module_group);
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module6());
+                $module_group->addChild(new Module7());
+                $content->addChild($module_group);
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module8());
+                $content->addChild($module_group);
+
+                $container->addChild(new Footer());
+
+            });
+
+        })->render();
+
+//         view("web.framework", ["title" => "首页", "css" => $css]);
     }
 
-    public function wxOauth()
+    public function chapterList(Request $request)
     {
+        return Cms::create(function(\App\Http\View\Cms $cms) use ($request){
 
-        $app = Factory::officialAccount($this->config);
+            $type = $request->get("type", 1);
 
-        $oauth = $app->oauth;
+            $type = CmsChapterType::find($type);
+            $title = $type->name;
+            $cms->title($title);
 
-        return $oauth->redirect();
+            $cms->setCss([
+                "css/web/base.css",
+                "css/web/tab.css",
+            ]);
+
+            $cms->setJs([
+                "/js/jquery.js",
+            ]);
+
+            $container = $cms->container(function(Container $container) use ($cms, $request, $type){
+
+                $container->addChild($cms->header());
+                $container->addChild($cms->menu(CmsMenu::class));
+//                $container->addChild($cms->banner(CmsImage::class));
+
+
+                $content = $cms->content();
+                $container->addChild($content);
+
+                $content->addChild(new BreadCrumb([
+                    "首页",
+                    $type->name
+                ]));
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module9());
+                $module_group->addChild(new Module10($request->get("type", 1)));
+                $content->addChild($module_group);
+
+                $container->addChild(new Footer());
+
+            });
+
+        })->render();
     }
 
-    public function oauthCallback()
+    public function detail()
     {
-        $app = Factory::officialAccount($this->config);
+        return Cms::create(function(\App\Http\View\Cms $cms){
 
-        $oauth = $app->oauth;
+            $title = "文章详情";
+            $cms->title($title);
 
-        $user = $oauth->user();
+            $cms->setCss([
+                "css/web/base.css",
+                "css/web/tab.css",
+            ]);
 
-//        redirect();
+            $cms->setJs([
+                "/js/jquery.js",
+            ]);
 
+            $container = $cms->container(function(Container $container) use ($cms){
+
+                $container->addChild($cms->header());
+                $container->addChild($cms->menu(CmsMenu::class));
+
+
+                $content = $cms->content();
+                $container->addChild($content);
+
+                $content->addChild(new BreadCrumb([
+                    "首页",
+                ]));
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module9());
+                $module_group->addChild(new Module11(\request()->get("id")));
+                $content->addChild($module_group);
+
+                $container->addChild(new Footer());
+
+            });
+
+        })->render();
+    }
+
+    public function download()
+    {
+        return Cms::create(function(\App\Http\View\Cms $cms){
+
+            $title = "下载专区";
+            $cms->title($title);
+
+            $cms->setCss([
+                "css/web/base.css",
+                "css/web/tab.css",
+            ]);
+
+            $cms->setJs([
+                "/js/jquery.js",
+            ]);
+
+            $container = $cms->container(function(Container $container) use ($cms){
+
+                $container->addChild($cms->header());
+                $container->addChild($cms->menu(CmsMenu::class));
+
+
+                $content = $cms->content();
+                $container->addChild($content);
+
+                $content->addChild(new BreadCrumb([
+                    "首页","下载专区"
+                ]));
+
+                $module_group = new ModuleGroup();
+                $module_group->addChild(new Module9());
+                $module_group->addChild(new Module12());
+                $content->addChild($module_group);
+
+                $container->addChild(new Footer());
+
+            });
+
+        })->render();
     }
 
 

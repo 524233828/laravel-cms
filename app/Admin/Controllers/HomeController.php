@@ -18,23 +18,23 @@ class HomeController extends Controller
         return Admin::content(function (Content $content) {
 
             $content->header('首页');
-            $content->description('欢迎使用测算后台');
+            $content->description('欢迎使用新丰中小企业服务站管理后台');
 
             $content->row(view('admin.title'));
 
             $content->row(function (Row $row) {
 
-//                $row->column(4, function (Column $column) {
-//                    $column->append(Dashboard::environment());
-//                });
-//
-//                $row->column(4, function (Column $column) {
-//                    $column->append(Dashboard::extensions());
-//                });
-//
-//                $row->column(4, function (Column $column) {
-//                    $column->append(Dashboard::dependencies());
-//                });
+                $row->column(4, function (Column $column) {
+                    $column->append(Dashboard::environment());
+                });
+
+                $row->column(4, function (Column $column) {
+                    $column->append(Dashboard::extensions());
+                });
+
+                $row->column(4, function (Column $column) {
+                    $column->append(Dashboard::dependencies());
+                });
             });
         });
     }

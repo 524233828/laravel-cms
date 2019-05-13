@@ -1,0 +1,64 @@
+.module-group .module-12{
+    width: 66%;
+    background-color: #FFFFFF;
+    border: 1px solid #e8e8e8;
+    height: auto;
+    padding: 29px 1.75%;
+    float: left;
+    margin-left: 1%;
+}
+
+.module-12 .title{
+    width: 95%;
+    padding-left: 5%;
+    background-image: url("/images/module-8-title.png");
+    background-repeat: no-repeat;
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 42px;
+    height: 40px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #5397e2;
+    margin: 14px 0;
+}
+
+.module-12 .list{
+    float: left;
+    width: 100%;
+}
+
+.module-12 .list .row
+{
+    padding: 0 3.16%;
+    width: 87.36%;
+    float: left;
+}
+
+.row .download-item{
+    width: 50%;
+    float: left;
+    margin-top: 46px;
+}
+
+.download-item .download-icon{
+    width: 14%;
+    padding-right: 4%;
+    float: left;
+}
+
+.download-item .download-icon img{
+    width: 100%;
+}
+
+.download-item .download-info{
+    float: left;
+    font-size: 13px;
+}
+
+.download-info .file_name{
+    color: #333333;
+}
+
+.download-info .file_info{
+    color: #999999;
+}

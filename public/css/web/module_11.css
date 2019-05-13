@@ -1,0 +1,60 @@
+.module-group .module-11{
+    width: 66%;
+    background-color: #FFFFFF;
+    border: 1px solid #e8e8e8;
+    height: auto;
+    padding: 29px 1.75%;
+    float: left;
+    margin-left: 1%;
+}
+
+.module-11 .title{
+    width: 95%;
+    padding-left: 5%;
+    background-image: url("/images/module-8-title.png");
+    background-repeat: no-repeat;
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 42px;
+    height: 40px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #5397e2;
+    margin: 14px 0;
+}
+
+.module-11 .detail
+{
+    padding: 0 3.47%;
+    width: 93.06%;
+    float: left;
+}
+
+.module-11 .detail .info
+{
+    width: 100%;
+    float: left;
+    height: 92px;
+    line-height: 92px;
+}
+
+.module-11 .detail .news-title
+{
+    width: 60%;
+    font-size: 16px;
+    color: #5397e2;
+    float: left;
+}
+
+.module-11 .detail .date-time
+{
+    font-size: 14px;
+    color: #999;
+    float: right;
+}
+
+.module-11 .news-content p
+{
+    font-size: 13px;
+    color: #666666;
+    margin-bottom: 40px;
+}

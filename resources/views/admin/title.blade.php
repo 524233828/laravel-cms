@@ -26,7 +26,7 @@
 </style>
 
 <div class="title">
-    测算后台管理系统
+    新丰中小企业服务站
 </div>
 {{--<div class="links">--}}
     {{--<a href="https://github.com/z-song/laravel-admin" target="_blank">Github</a>--}}
