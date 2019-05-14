@@ -8,7 +8,7 @@
         </div>
         <div class="right">
             @foreach($chapters as $chapter)
-                <a href="http://www.baidu.com">
+                <a href="{{ url("/detail?id={$chapter['id']}") }}}">
                 <div class="news">
                     <div class="news-title">{{$chapter['title']}}</div>
                     <div class="news-time">{{$chapter['created_at']}}</div>
