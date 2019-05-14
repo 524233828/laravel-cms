@@ -115,8 +115,24 @@
 
 .footer .content .block .link-group{
     color: #FFFFFF;
+    white-space: pre-wrap;
 }
 
+.link-group a{
+    color: #FFFFFF;
+}
+.link-group a:hover{
+    color: #FFFFFF;
+}
+.link-group a:link{
+    color: #FFFFFF;
+}
+.link-group a:active{
+    color: #FFFFFF;
+}
+.link-group a:visited{
+    color: #FFFFFF;
+}
 @media (max-width: 1240px){
     .footer .content .block{
         display: none;
