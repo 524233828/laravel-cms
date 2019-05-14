@@ -2,7 +2,7 @@
     <div class="title">{{$title['name']}}</div>
     <div class="list">
         @foreach($pagination as $news)
-        <a href="#test" class="item-contain">
+        <a href="{{url("/detail?id={$news['id']}")}}" class="item-contain">
             <div class="news-title">{{$news['title']}}</div>
             <div class="news-detail">
                 <div class="news-content">{{ strip_tags($news['content'])}}</div>

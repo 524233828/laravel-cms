@@ -4,7 +4,7 @@
         <div class="news_list">
             <ul>
                 @foreach($chapters as $chapter)
-                <li><a>{{$chapter['title']}}</a></li>
+                <li><a href="{{url("/detail?id={$chapter['id']}")}}">{{$chapter['title']}}</a></li>
                 @endforeach
             </ul>
         </div>
