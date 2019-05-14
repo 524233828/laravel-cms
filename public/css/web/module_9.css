@@ -43,9 +43,7 @@
 .news_list a{
     color: #666666;
 }
-.news_list a:hover{
-    color: #5397e2;
-}
+
 .news_list a:link{
     color: #666666;
 }
@@ -54,6 +52,10 @@
 }
 .news_list a:visited{
     color: #666666;
+}
+
+.news_list a:hover{
+    color: #5397e2;
 }
 
 .module-9 .info{
