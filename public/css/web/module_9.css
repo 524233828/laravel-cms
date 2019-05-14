@@ -40,6 +40,22 @@
 
 }
 
+.news_list a{
+    color: #666666;
+}
+.news_list a:hover{
+    color: #666666;
+}
+.news_list a:link{
+    color: #666666;
+}
+.news_list a:active{
+    color: #666666;
+}
+.news_list a:visited{
+    color: #666666;
+}
+
 .module-9 .info{
     width: 100%;
     background-color: #FFFFFF;
