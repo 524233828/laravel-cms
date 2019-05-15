@@ -31,6 +31,7 @@ class Shenbao extends AbstractViewable
 
     protected function script(){
         return <<<SCRIPT
+        $("#shenbao").css("top",$(".container .content").offset().top + 10)
     $(window).scroll(function (){
         var topScroll=getScroll();
         var topDiv="100px";
