@@ -41,7 +41,7 @@ class Module10 extends AbstractViewable
     public function getList()
     {
         $where = [["status","=","3"]];
-        array_merge($where, $this->where);
+        $where = array_merge($where, $this->where);
         return CmsChapter::where($where)
             ->paginate(8);
     }

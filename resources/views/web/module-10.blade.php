@@ -1,5 +1,5 @@
 <div class="module-10">
-    <div class="title">{{$title['name']}}</div>
+    <div class="title">{{$title}}</div>
     <div class="list">
         @foreach($pagination as $news)
         <a href="{{url("/detail?id={$news['id']}")}}" class="item-contain">
