@@ -32,7 +32,7 @@ class Menu extends AbstractViewable
 
     protected function getData()
     {
-        return $this->model::where(["status"=>1])->orderByDesc("sort")->orderBy("created_at")->get()->all();
+        return $this->model::where(["status"=>1])->orderByDesc("sort")->get()->all();
     }
 
     public function render()
