@@ -127,7 +127,7 @@ class IndexController
 
                 $content->addChild(new BreadCrumb([
                     "首页",
-                    $type->name
+                    $title
                 ]));
 
                 $where = [];
