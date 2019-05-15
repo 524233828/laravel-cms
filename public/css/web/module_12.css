@@ -57,6 +57,9 @@
 
 .download-info .file_name{
     color: #333333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .download-info .file_info{
