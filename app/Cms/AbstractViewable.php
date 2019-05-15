@@ -219,7 +219,7 @@ abstract class AbstractViewable implements Renderable
              */
             foreach ($this->children as $child){
 
-                $script = array_merge($js, $this->getScript(), $child->getChildrenScript());
+                $script = array_merge($script, $this->getScript(), $child->getChildrenScript());
 
             }
         }else{
