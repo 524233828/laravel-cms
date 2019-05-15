@@ -53,6 +53,7 @@
 .download-item .download-info{
     float: left;
     font-size: 13px;
+    width: 100%;
 }
 
 .download-info .file_name{
@@ -60,6 +61,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
 }
 
 .download-info .file_info{
