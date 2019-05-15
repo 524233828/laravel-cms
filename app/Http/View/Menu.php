@@ -15,7 +15,7 @@ class Menu extends AbstractViewable
 {
 
     /**
-     * @var \App\Models\Menu;
+     * @var \App\Models\CmsMenu;
      */
     protected $model;
 
@@ -32,7 +32,7 @@ class Menu extends AbstractViewable
 
     protected function getData()
     {
-        return $this->model::where(["status"=>1])->get()->all();
+        return $this->model::where(["status"=>1])->orderByDesc("sort")->orderBy("created_at")->get()->all();
     }
 
     public function render()
