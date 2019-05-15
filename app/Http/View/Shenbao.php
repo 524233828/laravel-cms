@@ -31,35 +31,37 @@ class Shenbao extends AbstractViewable
 
     protected function script(){
         return <<<SCRIPT
-        $("#shenbao").css("top",$(".container .content").offset().top + 10)
-    $(window).scroll(function (){
-        var topScroll=getScroll();
-        var topDiv="100px";
-        var top=topScroll+parseInt(topDiv);
-        var mintop = $(".container .content").offset().top + 10;
-        var maxtop = $(".container .footer").offset().top - $("#shenbao").height() -10;
-        if(top<mintop){
-            top=mintop;
-        }
-        if(top>maxtop){
-            top = maxtop;
-        }
-
-        $("#shenbao").stop(true).animate({"top":top},50);
+        $(document).ready(function(){
+            $("#shenbao").css("top",$(".container .content").offset().top + 10)
+            $(window).scroll(function (){
+                var topScroll=getScroll();
+                var topDiv="100px";
+                var top=topScroll+parseInt(topDiv);
+                var mintop = $(".container .content").offset().top + 10;
+                var maxtop = $(".container .footer").offset().top - $("#shenbao").height() -10;
+                if(top<mintop){
+                    top=mintop;
+                }
+                if(top>maxtop){
+                    top = maxtop;
+                }
         
-    })
-    function getScroll(){
-        var bodyTop = 0;
-        if (typeof window.pageYOffset != 'undefined') {
-            bodyTop = window.pageYOffset;
-        } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
-            bodyTop = document.documentElement.scrollTop;
-        }
-        else if (typeof document.body != 'undefined') {
-            bodyTop = document.body.scrollTop;
-        }
-        return bodyTop
-    }
+                $("#shenbao").stop(true).animate({"top":top},50);
+                
+            })
+            function getScroll(){
+                var bodyTop = 0;
+                if (typeof window.pageYOffset != 'undefined') {
+                    bodyTop = window.pageYOffset;
+                } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+                    bodyTop = document.documentElement.scrollTop;
+                }
+                else if (typeof document.body != 'undefined') {
+                    bodyTop = document.body.scrollTop;
+                }
+                return bodyTop
+            }
+        });
 SCRIPT;
 
     }
