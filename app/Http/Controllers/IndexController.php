@@ -25,6 +25,7 @@ use App\Http\View\Module7;
 use App\Http\View\Module8;
 use App\Http\View\Module9;
 use App\Http\View\ModuleGroup;
+use App\Models\CmsChapter;
 use App\Models\CmsChapterType;
 use App\Models\CmsImage;
 use App\Models\CmsMenu;
@@ -175,8 +176,10 @@ class IndexController
                 $content = $cms->content();
                 $container->addChild($content);
 
+                $chapter = CmsChapter::find(\request()->get("id"));
+                $type = CmsChapterType::find($chapter->type);
                 $content->addChild(new BreadCrumb([
-                    "首页",
+                    "首页",$type->name,"文章详情"
                 ]));
 
                 $module_group = new ModuleGroup();
