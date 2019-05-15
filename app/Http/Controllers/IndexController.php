@@ -25,6 +25,7 @@ use App\Http\View\Module7;
 use App\Http\View\Module8;
 use App\Http\View\Module9;
 use App\Http\View\ModuleGroup;
+use App\Http\View\Shenbao;
 use App\Models\CmsChapter;
 use App\Models\CmsChapterType;
 use App\Models\CmsImage;
@@ -85,6 +86,8 @@ class IndexController
                 $container->addChild(new Footer());
 
             });
+
+            $cms->addChild(new Shenbao());
 
         })->render();
 
@@ -148,6 +151,8 @@ class IndexController
 
             });
 
+            $cms->addChild(new Shenbao());
+
         })->render();
     }
 
@@ -191,6 +196,8 @@ class IndexController
 
             });
 
+            $cms->addChild(new Shenbao());
+
         })->render();
     }
 
@@ -231,6 +238,8 @@ class IndexController
                 $container->addChild(new Footer());
 
             });
+
+            $cms->addChild(new Shenbao());
 
         })->render();
     }

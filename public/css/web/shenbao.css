@@ -1,0 +1,58 @@
+#shenbao{
+    position: absolute;
+
+    left: 80px;
+    top: 1000px;
+
+    width: 200px;
+
+}
+
+.qrcode-contain{
+    background-color: #2e8ef4;
+    width: 100%;
+    border-radius: 7px;
+}
+
+.qrcode-title{
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+    padding: 20px;
+    color: #FFF;
+}
+
+.qrcode-img{
+    padding: 20px;
+    width: 160px;
+}
+
+.qrcode-img img{
+    width: 100%
+}
+
+.enter-contain{
+    background-color: #2e8ef4;
+    width: 160px;
+    border-radius: 7px;
+    padding: 20px;
+}
+
+.enter-img {
+    width: 120px;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: #FFF;
+    text-align: center;
+}
+
+.enter-img .enter-cn{
+    font-size: 18px;
+    font-weight: bolder;
+    color: #2e8ef4;
+}
+
+.enter-img .enter-en{
+    font-size: 10px;
+    color: #666666;
+}
