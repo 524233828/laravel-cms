@@ -123,7 +123,7 @@ abstract class AbstractViewable implements Renderable
      */
     public function addScript(string $script)
     {
-        array_push($this->script, $script);
+        array_push($this->scripts, $script);
         return $this;
     }
 
