@@ -77,9 +77,9 @@ class IndexController
                 $module_group->addChild(new Module7());
                 $content->addChild($module_group);
 
-                $module_group = new ModuleGroup();
-                $module_group->addChild(new Module8());
-                $content->addChild($module_group);
+//                $module_group = new ModuleGroup();
+//                $module_group->addChild(new Module8());
+//                $content->addChild($module_group);
 
                 $container->addChild(new Footer());
 
