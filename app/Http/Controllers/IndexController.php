@@ -98,11 +98,11 @@ class IndexController
     {
         return Cms::create(function(\App\Http\View\Cms $cms) use ($request){
 
-            $type = $request->get("type", "");
+            $type = $request->get("type", 1);
 
             $keyword = $request->get("keyword", "");
             if(empty($keyword)){
-                $type = CmsChapterType::find(1);
+                $type = CmsChapterType::find($type);
                 $title = $type->name;
             }else{
                 $title = "搜索";
