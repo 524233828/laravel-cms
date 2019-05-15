@@ -54,6 +54,7 @@ class Cms extends AbstractViewable
             "title" => $this->title,
             "js" => array_merge($this->getJs(), $this->container->getChildrenJs()),
             "css" => array_merge($this->getCss(), $this->container->getChildrenCss()),
+            "scripts" => array_merge($this->getScript(), $this->container->getChildrenScript()),
             "container" => $this->container->render()
         ]);
     }

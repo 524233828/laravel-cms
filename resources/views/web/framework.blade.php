@@ -14,6 +14,8 @@
 
 @include("web.js")
 
+@include("web.script")
+
 <script id="jsID" type="text/javascript">
     var ary = location.href.split("&");
     jQuery(".slideBox").slide( { mainCell:".bd ul",effect:"left", trigger: "click", autoPlay: true, interTime: 4000});

@@ -18,6 +18,8 @@ abstract class AbstractViewable implements Renderable
 
     protected $css = [];
 
+    protected $scripts = [];
+
     /**
      * @var array<AbstractViewable> $children
      */
@@ -97,6 +99,45 @@ abstract class AbstractViewable implements Renderable
     }
 
     /**
+     * @return array
+     */
+    public function getScript(): array
+    {
+        return $this->scripts;
+    }
+
+    /**
+     * @param array $script
+     * @return $this
+     */
+    public function setScript(array $script): AbstractViewable
+    {
+        $this->scripts = $script;
+
+        return $this;
+    }
+
+    /**
+     * @param string $script
+     * @return $this
+     */
+    public function addScript(string $script)
+    {
+        array_push($this->script, $script);
+        return $this;
+    }
+
+    /**
+     * @param array $script
+     * @return $this
+     */
+    public function appendScript(array $script)
+    {
+        $this->scripts = array_merge($this->scripts, $script);
+        return $this;
+    }
+
+    /**
      * @param AbstractViewable $child
      * @return $this
      */
@@ -165,6 +206,27 @@ abstract class AbstractViewable implements Renderable
         }
 
         return $js;
+    }
+
+    protected function getChildrenScript()
+    {
+
+        $script = [];
+        if(!$this->is_leaf){
+
+            /**
+             * @var AbstractViewable $child;
+             */
+            foreach ($this->children as $child){
+
+                $script = array_merge($js, $this->getScript(), $child->getChildrenScript());
+
+            }
+        }else{
+            return $this->getScript();
+        }
+
+        return $script;
     }
 
 }
