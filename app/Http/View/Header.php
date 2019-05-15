@@ -40,6 +40,8 @@ class Header extends AbstractViewable
         $w = date("w");
         $this->week = $weekly[$w];
 
+        $this->addScript($this->script());
+
     }
 
     public function render()
