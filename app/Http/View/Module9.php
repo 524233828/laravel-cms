@@ -23,6 +23,11 @@ class Module9 extends AbstractViewable
 
     protected $is_leaf = true;
 
+    public function __construct()
+    {
+        $this->addScript($this->script());
+    }
+
     protected function getChapter()
     {
         $chapters = CmsChapter::where([["status","=","3"],["type","=", "2"]])->orderBy("created_at","DESC")->limit(7)->get()->all();
@@ -35,5 +40,25 @@ class Module9 extends AbstractViewable
     {
         return view($this->view, ["chapters" => $this->getChapter()]);
         // TODO: Implement render() method.
+    }
+
+    protected function script()
+    {
+        return <<<SCRIPT
+    let map = new AMap.Map('map', {
+        resizeEnable: true,
+        zoom:18,//级别
+        center: [113.557456, 24.796976],//中心点坐标
+        viewMode:'3D'//使用3D视图
+    });
+
+    let marker = new AMap.Marker({
+        icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+        position: [113.557456, 24.796976]
+        // offset: new AMap.Pixel(-13, -30)
+    });
+    marker.setMap(map);
+SCRIPT;
+
     }
 }
