@@ -84,10 +84,10 @@ class IndexController
 //                $content->addChild($module_group);
 
                 $container->addChild(new Footer());
+                $container->addChild(new Shenbao());
 
             });
 
-            $cms->addChild(new Shenbao());
 
         })->render();
 
@@ -148,10 +148,10 @@ class IndexController
                 $content->addChild($module_group);
 
                 $container->addChild(new Footer());
+                $container->addChild(new Shenbao());
 
             });
 
-            $cms->addChild(new Shenbao());
 
         })->render();
     }
@@ -193,10 +193,10 @@ class IndexController
                 $content->addChild($module_group);
 
                 $container->addChild(new Footer());
+                $container->addChild(new Shenbao());
 
             });
 
-            $cms->addChild(new Shenbao());
 
         })->render();
     }
@@ -236,10 +236,11 @@ class IndexController
                 $content->addChild($module_group);
 
                 $container->addChild(new Footer());
+                $container->addChild(new Shenbao());
 
             });
 
-            $cms->addChild(new Shenbao());
+
 
         })->render();
     }
