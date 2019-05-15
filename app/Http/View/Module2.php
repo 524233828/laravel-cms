@@ -22,6 +22,11 @@ class Module2 extends AbstractViewable
 
     protected $is_leaf = true;
 
+    public function __construct()
+    {
+        $this->addScript($this->script());
+    }
+
     protected function getChapter()
     {
         $chapters = CmsChapter::where([["status","=","3"],["type","=", "2"]])->orderBy("created_at","DESC")->limit(5)->get()->all();
@@ -60,5 +65,20 @@ class Module2 extends AbstractViewable
             "images" => $this->getImage()
         ]);
         // TODO: Implement render() method.
+    }
+
+    protected function script()
+    {
+        return <<<SCRIPT
+    let module_group_1_width = $(".module-group").eq(1).width();
+
+    let module_1_img_width = $(".module-1").width();
+
+    let module_2_width = module_group_1_width * 0.97 - module_1_img_width;
+
+
+    $(".module-2").width(module_2_width);
+SCRIPT;
+
     }
 }
