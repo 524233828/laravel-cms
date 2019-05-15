@@ -2,11 +2,11 @@
     <div class="bar">
         <div class="title">新丰中小企业公共服务平台</div>
         <div class="operation">
-            <a>网站首页</a>
+            <a href="{{url("/")}}">网站首页</a>
             <a>关于我们</a>
             <a>联系我们</a>
-            <a>设为首页</a>
-            <a>加入收藏</a>
+            <a href="setHome(this,window.location)">设为首页</a>
+            <a href="javascript:addFavorite()">加入收藏</a>
         </div>
     </div>
     <div class="content">

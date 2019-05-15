@@ -10,7 +10,7 @@
     </div>
     <div class="date-time">{{$datetime}} {{$week}}</div>
     <div class="other">
-        <div class="operation"><a onclick="this.style.behavior=’url(#default#homepage)’;this.setHomePage(’{{env("APP_URL")}}’);" href="{{env("APP_URL")}}">设为首页</a> | <a href="http://www.baidu.com">加入收藏</a> | <a href="http://www.baidu.com">联系我们</a></div>
+        <div class="operation"><a href="javascript:setHome(this,window.location)">设为首页</a> | <a href="javascript:addFavorite()">加入收藏</a> | <a href="http://www.baidu.com">联系我们</a></div>
         <div class="search">
             <input id="search" @if($keyword !== "") value="{{$keyword}}" @endif placeholder="输入您想要搜索的内容">
             <button id="search_button"><img src="images/search.png"></button>
