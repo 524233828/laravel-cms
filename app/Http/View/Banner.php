@@ -25,8 +25,6 @@ class Banner extends AbstractViewable
 
     protected $js = ["/js/jquery.SuperSlide.2.1.3.js"];
 
-    protected $scripts;
-
     protected $is_leaf = true;
 
     public function __construct($model)
