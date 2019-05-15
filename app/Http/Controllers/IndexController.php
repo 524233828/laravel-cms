@@ -94,10 +94,16 @@ class IndexController
     {
         return Cms::create(function(\App\Http\View\Cms $cms) use ($request){
 
-            $type = $request->get("type", 1);
+            $type = $request->get("type", "");
 
-            $type = CmsChapterType::find($type);
-            $title = $type->name;
+            $keyword = $request->get("keyword", "");
+            if(empty($keyword)){
+                $type = CmsChapterType::find($type);
+                $title = $type->name;
+            }else{
+                $title = "搜索";
+            }
+
             $cms->title($title);
 
             $cms->setCss([
@@ -109,7 +115,7 @@ class IndexController
                 "/js/jquery.js",
             ]);
 
-            $container = $cms->container(function(Container $container) use ($cms, $request, $type){
+            $container = $cms->container(function(Container $container) use ($cms, $type, $keyword, $title){
 
                 $container->addChild($cms->header());
                 $container->addChild($cms->menu(CmsMenu::class));
@@ -124,9 +130,17 @@ class IndexController
                     $type->name
                 ]));
 
+                $where = [];
+                if(!empty($type)){
+                    $where[] = ["type", "=", "1"];
+                }
+
+                if(!empty($keyword)){
+                    $where[] = ["title", "like", "%{$keyword}%"];
+                }
                 $module_group = new ModuleGroup();
                 $module_group->addChild(new Module9());
-                $module_group->addChild(new Module10($request->get("type", 1)));
+                $module_group->addChild(new Module10($title, $where));
                 $content->addChild($module_group);
 
                 $container->addChild(new Footer());

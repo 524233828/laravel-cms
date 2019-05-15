@@ -46,7 +46,8 @@ class Header extends AbstractViewable
 
     public function render()
     {
-        return view($this->view, ["title" => $this->title, "datetime" => $this->datetime, "week" => $this->week]);
+        $keyword = request()->get("keyword","");
+        return view($this->view, ["title" => $this->title, "datetime" => $this->datetime, "week" => $this->week, "keyword" => $keyword]);
     }
 
     public function script(){

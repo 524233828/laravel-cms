@@ -23,25 +23,24 @@ class Module10 extends AbstractViewable
 
     protected $is_leaf = true;
 
-    protected $type = 1;
-
     protected $where = [];
+    protected $title = "";
 
-    public function __construct($type, $where = [])
+    public function __construct($title, $where = [])
     {
 
-        $this->type = $type;
         $this->where = $where;
+        $this->title = $title;
     }
 
-    public function getTitle($type)
+    public function getTitle()
     {
-        return CmsChapterType::where("id","=",$type)->get()->all();
+        return $this->title;
     }
 
-    public function getList($type)
+    public function getList()
     {
-        $where = [["type","=",$type],["status","=","3"]];
+        $where = [["status","=","3"]];
         array_merge($where, $this->where);
         return CmsChapter::where($where)
             ->paginate(8);
@@ -61,11 +60,11 @@ class Module10 extends AbstractViewable
 
     public function render()
     {
-        $pagination = $this->getList($this->type);
+        $pagination = $this->getList();
         $query = $this->filterPager();
 
         return view($this->view, [
-            "title" => $this->getTitle($this->type)[0]->toArray(),
+            "title" => $this->getTitle(),
             "pagination" => $pagination,
             "query" => $query,
             "pages" => $pagination->getUrlRange(1,$pagination->lastPage())
