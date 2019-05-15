@@ -12,8 +12,8 @@
     <div class="other">
         <div class="operation"><a onclick="this.style.behavior=’url(#default#homepage)’;this.setHomePage(’{{env("APP_URL")}}’);" href="{{env("APP_URL")}}">设为首页</a> | <a href="http://www.baidu.com">加入收藏</a> | <a href="http://www.baidu.com">联系我们</a></div>
         <div class="search">
-            <input placeholder="输入您想要搜索的内容">
-            <button><img src="images/search.png"></button>
+            <input id="search" placeholder="输入您想要搜索的内容">
+            <button id="search_button"><img src="images/search.png"></button>
         </div>
     </div>
 </div>

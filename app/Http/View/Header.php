@@ -46,4 +46,17 @@ class Header extends AbstractViewable
     {
         return view($this->view, ["title" => $this->title, "datetime" => $this->datetime, "week" => $this->week]);
     }
+
+    public function script(){
+        $url = url("/chapter_list");
+        return <<<SCRIPT
+    $("#search_button").on("click",function () {
+       let self = this;
+
+       let keyword = $("#search").val();
+       location.href = "{$url}?keyword=" + keyword;
+    });
+SCRIPT;
+
+    }
 }
