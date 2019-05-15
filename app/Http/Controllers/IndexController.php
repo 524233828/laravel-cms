@@ -102,7 +102,7 @@ class IndexController
 
             $keyword = $request->get("keyword", "");
             if(empty($keyword)){
-                $type = CmsChapterType::find($type);
+                $type = CmsChapterType::find(1);
                 $title = $type->name;
             }else{
                 $title = "搜索";
