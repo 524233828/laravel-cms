@@ -12,6 +12,7 @@
     line-height: 131px;
     font-family: "Microsoft Sans Serif";
     margin-right: 0.89%;
+    font-weight: bolder;
 }
 
 .header .title-group .sub_title{
@@ -92,6 +93,15 @@
 
 .header .other .search button img{
     width: 100%;
+}
+
+#date_time{
+    float: left;
+    width:75%;
+}
+#week{
+    float: left;
+    width:25%;
 }
 
 @media (min-width: 1441px) {

@@ -66,6 +66,12 @@
     height: 100%;
 }
 
+.footer .content .block.link{
+    width: 60%;
+    float: left;
+    height: 100%;
+}
+
 .footer .content .block .qrcode{
     float: left;
     width: 100%;
@@ -100,8 +106,8 @@
 }
 
 .footer .content .block .title{
-    width: 95%;
-    padding-left: 5%;
+    width: 47.5%;
+    padding-left: 2.5%;
     background-image: url("/images/footer-title.png");
     background-repeat: no-repeat;
     font-size: 18px;
@@ -111,6 +117,7 @@
     padding-bottom: 1px;
     border-bottom: 1px solid #5397e2;
     margin-bottom: 14px;
+    float: left;
 }
 
 .footer .content .block .link-group{

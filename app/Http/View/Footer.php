@@ -21,6 +21,11 @@ class Footer extends AbstractViewable
 
     protected $is_leaf = true;
 
+    public function __construct()
+    {
+        $this->addScript($this->script());
+    }
+
     protected function getFriend($type = 0)
     {
         $link = CmsFriendLink::where([["status","=","1"],["type","=", $type]])
@@ -36,5 +41,32 @@ class Footer extends AbstractViewable
             "link0" => $this->getFriend(),
             "link1" => $this->getFriend(1)
         ]);
+    }
+
+    private function script()
+    {
+        return <<<SCRIPT
+        $("#links1").hide();
+$("#link-title-0").on("mouseover", function(){
+    $("#links0").show();
+    $("#links1").hide();
+});
+
+$("#link-title-1").on("mouseover", function(){
+    $("#links1").show();
+    $("#links0").hide();
+});
+
+$("#link-title-0").on("click", function(){
+    $("#links0").show();
+    $("#links1").hide();
+});
+
+$("#link-title-1").on("click", function(){
+    $("#links1").show();
+    $("#links0").hide();
+});
+SCRIPT;
+
     }
 }

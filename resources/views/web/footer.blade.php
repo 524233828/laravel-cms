@@ -22,25 +22,33 @@
             </div>
         </div>
 
-        <div class="block" style="margin-left: 5%;">
-            <div class="title">
+        <div class="block link" style="margin-left: 5%;">
+            <div class="title" id="link-title-0">
                 政务链接
             </div>
-            <div class="link-group">
+            <div class="title" id="link-title-1">
+                其他链接
+            </div>
+            <div class="link-group" id="links0" >
                 @foreach($link0 as $link)
                     <a href="{{$link['link']}}">{{$link["name"]}}</a>&nbsp;
                 @endforeach
             </div>
-        </div>
-        <div class="block">
-            <div class="title">
-                其他链接
-            </div>
-            <div class="link-group">
+            <div class="link-group" id="links1">
                 @foreach($link1 as $link)
                     <a href="{{$link['link']}}">{{$link["name"]}}</a>&nbsp;
                 @endforeach
             </div>
         </div>
+        {{--<div class="block">--}}
+            {{--<div class="title">--}}
+                {{--其他链接--}}
+            {{--</div>--}}
+            {{--<div class="link-group">--}}
+                {{--@foreach($link1 as $link)--}}
+                    {{--<a href="{{$link['link']}}">{{$link["name"]}}</a>&nbsp;--}}
+                {{--@endforeach--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div>
 </div>

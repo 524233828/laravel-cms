@@ -41,6 +41,8 @@ class Header extends AbstractViewable
         $this->week = $weekly[$w];
 
         $this->addScript($this->script());
+        $this->addScript($this->script2());
+        $this->addScript($this->clock());
 
     }
 
@@ -96,13 +98,55 @@ SCRIPT;
                     netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
                 }
                 catch (e) {
-                    alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
+                    alert("此操作被浏览器拒绝！请在浏览器地址栏输入“about:config”并回车然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
                 }
                 var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
                 prefs.setCharPref('browser.startup.homepage',vrl);
             }
         }
     }
+
+SCRIPT;
+
+    }
+
+    public function clock()
+    {
+        return <<<SCRIPT
+        
+Date.prototype.Format = function(formatStr)   
+{   
+    var str = formatStr;   
+    var Week = ['日','一','二','三','四','五','六'];  
+   
+    str=str.replace(/yyyy|YYYY/,this.getFullYear());   
+    str=str.replace(/yy|YY/,(this.getYear() % 100)>9?(this.getYear() % 100).toString():'0' + (this.getYear() % 100));   
+   
+    let month = this.getMonth()+1;
+    str=str.replace(/MM/,month>9?month.toString():'0' + month);   
+    str=str.replace(/M/g,this.getMonth());   
+   
+    str=str.replace(/w|W/g,Week[this.getDay()]);   
+   
+    str=str.replace(/dd|DD/,this.getDate()>9?this.getDate().toString():'0' + this.getDate());   
+    str=str.replace(/d|D/g,this.getDate());   
+   
+    str=str.replace(/hh|HH/,this.getHours()>9?this.getHours().toString():'0' + this.getHours());   
+    str=str.replace(/h|H/g,this.getHours());   
+    str=str.replace(/mm/,this.getMinutes()>9?this.getMinutes().toString():'0' + this.getMinutes());   
+    str=str.replace(/m/g,this.getMinutes());   
+   
+    str=str.replace(/ss|SS/,this.getSeconds()>9?this.getSeconds().toString():'0' + this.getSeconds());   
+    str=str.replace(/s|S/g,this.getSeconds());   
+   
+    return str;   
+}   
+
+setInterval(function(){
+    var myDate = new Date();
+    let time = myDate.Format("YYYY年MM月DD日 HH:mm:ss")
+    $("#date_time").text(time);
+},1000);
 
 SCRIPT;
 

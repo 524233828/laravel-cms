@@ -8,7 +8,7 @@
             <div class="site">www.xfzxqy.com</div>
         </div>
     </div>
-    <div class="date-time">{{$datetime}} {{$week}}</div>
+    <div class="date-time"><div id="date_time">{{$datetime}}</div><div id="week">{{$week}}</div></div>
     <div class="other">
         <div class="operation"><a href="javascript:setHome(this,window.location)">设为首页</a> | <a href="javascript:addFavorite()">加入收藏</a> | <a href="http://www.baidu.com">联系我们</a></div>
         <div class="search">
