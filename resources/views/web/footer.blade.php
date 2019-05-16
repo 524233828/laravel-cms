@@ -5,7 +5,7 @@
             <a href="{{url("/")}}">网站首页</a>
             <a>关于我们</a>
             <a>联系我们</a>
-            <a href="setHome(this,window.location)">设为首页</a>
+            <a href="javascript:setHome(this,window.location)">设为首页</a>
             <a href="javascript:addFavorite()">加入收藏</a>
         </div>
     </div>
