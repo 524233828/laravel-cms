@@ -37,10 +37,17 @@
     float: left;
 }
 
+.right a{
+    width:100%;
+    float:left;
+}
+
+
 .module-2 .content .right .news{
     font-size: 14px;
     line-height: 30px;
-
+    width:100%;
+    float:left;
 }
 
 .module-2 .content .right .news .news-title{

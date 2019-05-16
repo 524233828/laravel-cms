@@ -29,6 +29,22 @@
     text-align: center;
 }
 
+
+.service a:link{
+    color: #999999;
+}
+.service a:active{
+    color: #999999;
+}
+
+.service a:visited{
+    color: #999999;
+}
+
+.service a:hover{
+    color: #333333;
+}
+
 .module-group .module-7 .service-group .service img{
     width: 100%;
 }
