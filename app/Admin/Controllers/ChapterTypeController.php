@@ -118,11 +118,15 @@ class ChapterTypeController extends Controller
 
             $form->display('id',"ID");
             $form->text('name',"文章分类")->rules("required|string");
-            $form->datetime('created_at',"创建时间");
-            $form->datetime('updated_at',"更新时间");
+            $form->image('img_path', "上传头部图片");
+//            $form->datetime('created_at',"创建时间");
+//            $form->datetime('updated_at',"更新时间");
             $form->select("status","状态")->options([0=>"冻结",1=>"启用"])->default(1);
 
 
+            $form->saving(function (Form $form) {
+                $form->img_path = config("filesystems.disks.admin.path") . $form->img_path;
+            });
 
         });
     }
