@@ -8,7 +8,6 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Extensions\Actions\ChapterCheck;
 use App\Models\CmsChapter;
 use App\Http\Controllers\Controller;
 use App\Models\CmsChapterType;
@@ -18,7 +17,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 
-class ChapterController extends Controller
+class ChapterCheckController extends Controller
 {
 
     use HasResourceActions;
@@ -101,10 +100,6 @@ class ChapterController extends Controller
             $grid->column("status","状态")->using([0=>"不通过审核",1=>"待审核",2=>"已审核",3=>"已发布"]);
 
 
-            $grid->actions(function (Grid\Displayers\Actions $actions){
-                $actions->append(new ChapterCheck($actions->getResource(), $actions->getKey()));
-            });
-
             //允许筛选的项
             //筛选规则不允许用like，且搜索字段必须为索引字段
             //TODO: 使用模糊查询必须通过搜索引擎，此处请扩展搜索引擎
@@ -132,7 +127,7 @@ class ChapterController extends Controller
             $form->editor('content', '文章内容')->rules("required|string");
 //            $form->datetime('created_at',"创建时间");
 //            $form->datetime('updated_at',"更新时间");
-//            $form->select("status","状态")->options([0=>"冻结",1=>"待审核",2=>"已审核",3=>"已发布"]);
+            $form->select("status","审核状态")->options([0=>"不通过审核",1=>"待审核",2=>"通过审核",3=>"发布"]);
 
         });
     }

@@ -32,6 +32,7 @@ Route::group([
 
     $router->resource('/menus', 'MenuController');
     $router->resource('/chapters', 'ChapterController');
+    $router->resource('/chapter_check', 'ChapterCheckController');
     $router->resource('/chapter_types', 'ChapterTypeController');
     $router->resource('/images', 'ImageController');
     $router->resource('/friend_links', 'FriendLinkController');
