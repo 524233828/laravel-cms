@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb2ed9348d8cc5ba9cd565bba84d8747",
+    "content-hash": "58d11a169dfd1eefdea5980219b21107",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1631,39 +1631,6 @@
                 "psr-3"
             ],
             "time": "2018-11-05T09:00:11+00:00"
-        },
-        {
-            "name": "mushan/baidu-tongji",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:mushan0703/BaiduTongji.git",
-                "reference": "493b117293a988df2d533c69959cf104d9bfccd8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Mushan\\BaiduTongji\\": "src/"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "mushan",
-                    "email": "804216865@qq.com"
-                }
-            ],
-            "description": "Laravel 百度统计集成包",
-            "keywords": [
-                "Laravel",
-                "baidu-tongji"
-            ],
-            "time": "2017-03-28T07:29:56+00:00"
         },
         {
             "name": "nesbot/carbon",
