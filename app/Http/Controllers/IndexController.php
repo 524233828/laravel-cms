@@ -130,7 +130,7 @@ class IndexController
                 $content = $cms->content();
                 $container->addChild($content);
 
-                $content->addChild(new Module13($type));
+                $content->addChild(new Module13($type->img_path));
 
                 $content->addChild(new BreadCrumb([
                     "首页",
@@ -186,6 +186,7 @@ class IndexController
 
                 $chapter = CmsChapter::find(\request()->get("id"));
                 $type = CmsChapterType::find($chapter->type);
+                $content->addChild(new Module13($type->img_path));
                 $content->addChild(new BreadCrumb([
                     "首页",$type->name,"文章详情"
                 ]));
@@ -228,6 +229,8 @@ class IndexController
 
                 $content = $cms->content();
                 $container->addChild($content);
+
+                $content->addChild(new Module13("images/download-banner.png"));
 
                 $content->addChild(new BreadCrumb([
                     "首页","下载专区"

@@ -24,18 +24,18 @@ class Module13 extends AbstractViewable
 
     protected $is_leaf = true;
 
-    protected $type;
+    protected $img_path;
 
-    public function __construct($type)
+    public function __construct($img_path)
     {
-        $this->type = $type;
+        $this->img_path = $img_path;
     }
 
     public function render()
     {
 
         return view($this->view, [
-            "type" => $this->type
+            "img_path" => $this->img_path
         ]);
     }
 }
