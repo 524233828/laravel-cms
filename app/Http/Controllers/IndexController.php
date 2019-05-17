@@ -100,10 +100,11 @@ class IndexController
         return Cms::create(function(\App\Http\View\Cms $cms) use ($request){
 
             $type = $request->get("type", 1);
+            $type_obj = CmsChapterType::find($type);
 
             $keyword = $request->get("keyword", "");
             if(empty($keyword)){
-                $type = CmsChapterType::find($type);
+
                 $title = $type->name;
             }else{
                 $title = "搜索";
@@ -120,7 +121,7 @@ class IndexController
                 "/js/jquery.js",
             ]);
 
-            $container = $cms->container(function(Container $container) use ($cms, $type, $keyword, $title){
+            $container = $cms->container(function(Container $container) use ($cms, $type, $keyword, $title, $type_obj){
 
                 $container->addChild($cms->header());
                 $container->addChild($cms->menu(CmsMenu::class));
@@ -130,7 +131,7 @@ class IndexController
                 $content = $cms->content();
                 $container->addChild($content);
 
-                $content->addChild(new Module13($type->img_path));
+                $content->addChild(new Module13($type_obj->img_path));
 
                 $content->addChild(new BreadCrumb([
                     "首页",
@@ -138,8 +139,8 @@ class IndexController
                 ]));
 
                 $where = [];
-                if(!empty($type)){
-                    $where[] = ["type", "=", "1"];
+                if(!empty(\request()->get("type"))){
+                    $where[] = ["type", "=", $type];
                 }
 
                 if(!empty($keyword)){
