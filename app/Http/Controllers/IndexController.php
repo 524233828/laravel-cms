@@ -105,7 +105,7 @@ class IndexController
             $keyword = $request->get("keyword", "");
             if(empty($keyword)){
 
-                $title = $type->name;
+                $title = $type_obj->name;
             }else{
                 $title = "搜索";
             }
