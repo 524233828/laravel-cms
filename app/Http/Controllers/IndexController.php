@@ -17,6 +17,7 @@ use App\Http\View\Module1;
 use App\Http\View\Module10;
 use App\Http\View\Module11;
 use App\Http\View\Module12;
+use App\Http\View\Module13;
 use App\Http\View\Module2;
 use App\Http\View\Module3;
 use App\Http\View\Module4;
@@ -128,6 +129,8 @@ class IndexController
 
                 $content = $cms->content();
                 $container->addChild($content);
+
+                $content->addChild(new Module13($type));
 
                 $content->addChild(new BreadCrumb([
                     "首页",
