@@ -28,6 +28,7 @@ class Menu extends AbstractViewable
     public function __construct($model)
     {
         $this->model = $model;
+        $this->addScript($this->script());
     }
 
     protected function getData()
@@ -41,5 +42,20 @@ class Menu extends AbstractViewable
         return view($this->view, [
             "menus" => $this->getData()
         ]);
+    }
+
+    public function script(){
+        return <<<SCRIPT
+$(".menu-button").on("click", function(){
+    if($(".menu").offset().left >= 0){
+        $(".menu").animate({left:"-30%"});
+    }else{
+        $(".menu").animate({left:0});
+    }
+    
+});
+
+SCRIPT;
+
     }
 }
