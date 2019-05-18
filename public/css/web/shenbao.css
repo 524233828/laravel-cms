@@ -56,3 +56,9 @@
     font-size: 10px;
     color: #666666;
 }
+
+@media (max-width: 1105px) {
+    #shenbao{
+        display: none;
+    }
+}
