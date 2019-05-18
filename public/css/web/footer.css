@@ -139,8 +139,21 @@
 .link-group a:visited{
     color: #FFFFFF;
 }
-@media (max-width: 1240px){
+@media (max-width: 1240px) and (min-width: 1101px){
     .footer .content .block{
         display: none;
+    }
+}
+
+@media (max-width: 1100px){
+    .footer .operation{
+        display: none;
+    }
+    .footer .content .block.link{
+        display: none;
+    }
+
+    .footer .content .block{
+        width: 60%;
     }
 }
