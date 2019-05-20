@@ -45,6 +45,10 @@ class Module9 extends AbstractViewable
     protected function script()
     {
         return <<<SCRIPT
+        
+    let longitude = 113.557456;
+    let latitude = 24.796976;
+        
     let map = new AMap.Map('map', {
         resizeEnable: true,
         zoom:18,//级别
@@ -54,10 +58,14 @@ class Module9 extends AbstractViewable
 
     let marker = new AMap.Marker({
         icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
-        position: [113.557456, 24.796976]
+        position: [longitude, latitude]
         // offset: new AMap.Pixel(-13, -30)
     });
     marker.setMap(map);
+    
+    $("#map").on("click",function(){
+        location.href = "https://m.amap.com/navi/?dest="+longitude+","+latitude+"&destName=驾车&key=28522f036544986e1ad0a6e1ba03e439"
+    });
 SCRIPT;
 
     }
