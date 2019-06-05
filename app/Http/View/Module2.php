@@ -72,9 +72,9 @@ class Module2 extends AbstractViewable
         return <<<SCRIPT
     let module_group_1_width = $(".module-group").eq(1).width();
 
-    let module_1_img_width = $(".module-1").width();
+    let module_1_img_width = $(".module-1").outerWidth();
 
-    let module_2_width = module_group_1_width * 0.97 - module_1_img_width;
+    let module_2_width = module_group_1_width  - module_1_img_width;
 
 
     $(".module-2").width(module_2_width);
