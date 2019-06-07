@@ -13,7 +13,8 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "overtrue/wechat": "~4.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "laravel-admin-ext/wang-editor":"v1.0.2"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
@@ -63,8 +64,14 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
 
-    "repositories" : [{
-        "type" : "git",
-        "url" : "git@github.com:mushan0703/BaiduTongji.git"
-    }]
+    "repositories" : [
+        {
+            "type" : "git",
+            "url" : "git@github.com:mushan0703/BaiduTongji.git"
+        },
+        {
+            "type" : "git",
+            "url" : "git@github.com:laravel-admin-extensions/wangEditor.git"
+        }
+    ]
 }
