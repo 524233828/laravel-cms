@@ -18,8 +18,17 @@ class UploadController extends Controller
 
     public function image(Request $request)
     {
-        var_dump($request->getContent());exit;
-        $path = $request->file('avatar')->store("/",'admin');
-        var_dump($path);
+        $path = $request->file('image')->store("/",'admin');
+        return json_encode([
+
+            // errno 即错误代码，0 表示没有错误。
+            //       如果有错误，errno != 0，可通过下文中的监听函数 fail 拿到该错误码进行自定义处理
+            "errno" =>  0,
+
+            // data 是一个数组，返回若干图片的线上地址
+            "data" =>  [
+                $path
+            ]
+        ]);
     }
 }
