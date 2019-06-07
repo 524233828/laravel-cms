@@ -18,7 +18,7 @@ class UploadController extends Controller
 
     public function image(Request $request)
     {
-        $path = $request->file('image')->store("/",'admin');
+        $path = $request->file('image')->store("/uploads/images/",'admin');
         return json_encode([
 
             // errno 即错误代码，0 表示没有错误。
@@ -27,7 +27,7 @@ class UploadController extends Controller
 
             // data 是一个数组，返回若干图片的线上地址
             "data" =>  [
-                $path
+                env('APP_URL')."/".$path
             ]
         ]);
     }
