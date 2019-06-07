@@ -18,7 +18,7 @@ class UploadController extends Controller
 
     public function image(Request $request)
     {
-        $path = $request->file('image')->store("/uploads/images/",'admin');
+        $path = $request->file('image')->store("uploads/images/",'admin');
         return json_encode([
 
             // errno 即错误代码，0 表示没有错误。
