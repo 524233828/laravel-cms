@@ -5,3 +5,21 @@
     font-size: 14px;
     color: #666666;
 }
+
+.bread-crumb a{
+    color: #666666;
+}
+
+.bread-crumb a:link{
+    color: #666666;
+}
+.bread-crumb a:active{
+    color: #666666;
+}
+.bread-crumb a:visited{
+    color: #666666;
+}
+
+.bread-crumb a:hover{
+    color: #5397e2;
+}

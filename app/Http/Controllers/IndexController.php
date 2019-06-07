@@ -134,8 +134,8 @@ class IndexController
                 $content->addChild(new Module13($type_obj->img_path));
 
                 $content->addChild(new BreadCrumb([
-                    "首页",
-                    $title
+                    ["name" => "首页", "url" => url("/")],
+                    ["name" => $title, "url" => "javascript:void(0);"],
                 ]));
 
                 $where = [];
@@ -189,7 +189,9 @@ class IndexController
                 $type = CmsChapterType::find($chapter->type);
                 $content->addChild(new Module13($type->img_path));
                 $content->addChild(new BreadCrumb([
-                    "首页",$type->name,"文章详情"
+                    ["name" => "首页", "url" => url("/")],
+                    ["name" => $type->name, "url" => url("/chapter_list?type={$type->id}")],
+                    ["name" => "文章详情", "url" => "javascript:void(0);"],
                 ]));
 
                 $module_group = new ModuleGroup();
@@ -234,7 +236,8 @@ class IndexController
                 $content->addChild(new Module13("images/download-banner.png"));
 
                 $content->addChild(new BreadCrumb([
-                    "首页","下载专区"
+                    ["name" => "首页", "url" => url("/")],
+                    ["name" => "下载专区", "url" => "javascript:void(0);"],
                 ]));
 
                 $module_group = new ModuleGroup();

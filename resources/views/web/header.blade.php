@@ -1,11 +1,11 @@
-<div class="tab">欢迎进入新丰中小企业公共服务平台</div>
+<div class="tab">欢迎进入新丰县中小企业公共服务平台</div>
 <div class="tab-mobile"> {{ $title }}</div>
 <div class="header">
     <div class="title-group">
-        <div class="title">新丰中小企业公共服务平台</div>
+        <div class="title">新丰县中小企业公共服务平台</div>
         <div class="sub_title">
-            <div class="cn"> | 新丰中小企业网</div>
-            <div class="site">www.xfzxqy.com</div>
+            <div class="cn"> | 新丰县中小企业网</div>
+            <div class="site">www.xfgxservice.cn</div>
         </div>
     </div>
     <div class="date-time"><div id="date_time">{{$datetime}}</div><div id="week">{{$week}}</div></div>
