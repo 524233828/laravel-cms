@@ -164,7 +164,7 @@ return [
 
             // 编辑器的配置
             'config' => [
-                'uploadImgServer' => '/upload'
+                'uploadImgServer' => '/admin/upload'
             ]
         ]
     ],
