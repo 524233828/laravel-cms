@@ -38,6 +38,7 @@ Route::group([
     $router->resource('/friend_links', 'FriendLinkController');
     $router->resource('/service_enters', 'ServiceEnterController');
     $router->resource('/files', 'FilesController');
+    $router->post('/upload', 'UploadController@image');
 
 
 });
