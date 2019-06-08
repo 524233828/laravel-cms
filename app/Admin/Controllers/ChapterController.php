@@ -129,7 +129,7 @@ class ChapterController extends Controller
             $form->display('id',"ID");
             $form->select('type',"文章分类")->options(CmsChapterType::getType())->rules("required");
             $form->text('title',"文章标题")->rules("required|string");
-            $form->editor('content', '文章内容')->rules("required|string");
+            $form->kindeditor('content', '文章内容')->rules("required|string");
 //            $form->datetime('created_at',"创建时间");
 //            $form->datetime('updated_at',"更新时间");
 //            $form->select("status","状态")->options([0=>"冻结",1=>"待审核",2=>"已审核",3=>"已发布"]);
