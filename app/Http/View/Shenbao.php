@@ -33,12 +33,15 @@ class Shenbao extends AbstractViewable
         return <<<SCRIPT
         $(document).ready(function(){
             let left = (parseInt($(".container .content").css("padding-left"))-200)/2;
-            let height = $("#shenbao2").outerHeight();
-            $(".qrcode-contain").css("height",height);
+            let height = $("#shenbao2").outerHeight() - 100;
+            console.log(height);
+//            $(".qrcode-contain").css("height",height);
+            
             let title_height = $(".qrcode-title").outerHeight();
-            let qrcode_img = $(".qrcode-img img").outerHeight();
+            let qrcode_img = $(".qrcode-img").outerHeight();
             let qrcode_padding = (height-title_height-qrcode_img)/2;
-            $(".qrcode-img").css("padding", qrcode_padding+"px 20px");
+//            $(".qrcode-contain").css("padding", qrcode_padding+"px 0");
+//            $(".qrcode-contain").css("height", (height-qrcode_padding*2) + "px" );
             if(left<0){
                 $("#shenbao").hide();
                 $("#shenbao2").hide();
@@ -52,7 +55,7 @@ class Shenbao extends AbstractViewable
                     var topDiv="100px";
                     var top=topScroll+parseInt(topDiv);
                     var mintop = $(".container .content").offset().top + 10;
-                    var maxtop = $(".container .footer").offset().top - $("#shenbao").height() -10;
+                    var maxtop = $(".container .footer").offset().top - $("#shenbao2").height() -10;
                     if(top<mintop){
                         top=mintop;
                     }

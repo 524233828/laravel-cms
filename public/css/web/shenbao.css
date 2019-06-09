@@ -22,6 +22,8 @@
     background-color: #2e8ef4;
     width: 100%;
     border-radius: 7px;
+    padding: 111px 0px;
+    height: 295px;
 }
 
 .qrcode-title{
@@ -58,7 +60,7 @@
 }
 
 .enter-img .enter-cn{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bolder;
     color: #2e8ef4;
 }
