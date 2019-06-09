@@ -33,12 +33,20 @@ class Shenbao extends AbstractViewable
         return <<<SCRIPT
         $(document).ready(function(){
             let left = (parseInt($(".container .content").css("padding-left"))-200)/2;
-            console.log(left);
+            let height = $("#shenbao2").outerHeight();
+            $(".qrcode-contain").css("height",height);
+            let title_height = $(".qrcode-title").outerHeight();
+            let qrcode_img = $(".qrcode-img img").outerHeight();
+            let qrcode_padding = (height-title_height-qrcode_img)/2;
+            $(".qrcode-img").css("padding", qrcode_padding+"px 20px");
             if(left<0){
                 $("#shenbao").hide();
+                $("#shenbao2").hide();
             }else{
                 $("#shenbao").css("left", left);
                 $("#shenbao").css("top",$(".container .content").offset().top + 10)
+                $("#shenbao2").css("right", left);
+                $("#shenbao2").css("top",$(".container .content").offset().top + 10)
                 $(window).scroll(function (){
                     var topScroll=getScroll();
                     var topDiv="100px";
@@ -53,8 +61,11 @@ class Shenbao extends AbstractViewable
                     }
             
                     $("#shenbao").stop(true).animate({"top":top},50);
+                    $("#shenbao2").stop(true).animate({"top":top},50);
                     
                 })
+                
+                
             }
             function getScroll(){
                 var bodyTop = 0;

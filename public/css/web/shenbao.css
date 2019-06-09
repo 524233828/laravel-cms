@@ -8,6 +8,16 @@
 
 }
 
+#shenbao2{
+    position: absolute;
+
+    right: 80px;
+    top: 1000px;
+
+    width: 200px;
+
+}
+
 .qrcode-contain{
     background-color: #2e8ef4;
     width: 100%;
@@ -41,6 +51,7 @@
 .enter-img {
     width: 120px;
     padding: 20px;
+    margin: 10px 0;
     border-radius: 7px;
     background-color: #FFF;
     text-align: center;
