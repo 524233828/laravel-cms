@@ -58,3 +58,8 @@
     color: #666666;
     margin-bottom: 40px;
 }
+
+.news-content img{
+    width: 100%;
+    max-width: 100%;
+}
