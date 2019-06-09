@@ -113,7 +113,8 @@ class ChapterController extends Controller
                 $filter->where(function ($query) {
                     $query->where('title', 'like', "{$this->input}%");
                 }, '文章标题');
-                $filter->equal("type","文章分类");
+                $filter->equal("type","文章分类")->select(CmsChapterType::getType());
+                $filter->equal("status","文章分类")->select([0=>"不通过审核",1=>"待审核",2=>"已审核",3=>"已发布"]);
 
 
             });
