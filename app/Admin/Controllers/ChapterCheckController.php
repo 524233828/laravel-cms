@@ -8,6 +8,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\Actions\ChapterCheck;
 use App\Models\CmsChapter;
 use App\Http\Controllers\Controller;
 use App\Models\CmsChapterType;
@@ -99,6 +100,9 @@ class ChapterCheckController extends Controller
             $grid->column("updated_at","更新时间");
             $grid->column("status","状态")->using([0=>"不通过审核",1=>"待审核",2=>"已审核",3=>"已发布"]);
 
+            $grid->actions(function (Grid\Displayers\Actions $actions){
+                $actions->append(new ChapterCheck($actions->getResource(), $actions->getKey()));
+            });
 
             //允许筛选的项
             //筛选规则不允许用like，且搜索字段必须为索引字段
@@ -108,11 +112,11 @@ class ChapterCheckController extends Controller
                 $filter->where(function ($query) {
                     $query->where('title', 'like', "{$this->input}%");
                 }, '文章标题');
-                $filter->equal("type","文章分类");
+                $filter->equal("type","文章分类")->select(CmsChapterType::getType());
+                $filter->equal("status","文章分类")->select([0=>"不通过审核",1=>"待审核",2=>"已审核",3=>"已发布"]);
 
 
             });
-
 
         });
     }
