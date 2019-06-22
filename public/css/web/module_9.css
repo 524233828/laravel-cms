@@ -104,3 +104,9 @@
 .module-9 .info .qrcode img {
     width: 100%;
 }
+
+@media (max-width: 1100px) {
+    .module-9{
+        display: none;
+    }
+}

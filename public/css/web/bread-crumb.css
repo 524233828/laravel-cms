@@ -23,3 +23,9 @@
 .bread-crumb a:hover{
     color: #5397e2;
 }
+
+@media (max-width: 1100px) {
+    .bread-crumb{
+        display: none;
+    }
+}

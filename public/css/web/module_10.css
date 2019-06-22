@@ -75,3 +75,24 @@
 .news-detail .news-date-time{
     float: right;
 }
+
+@media (max-width: 1100px) {
+    .module-group .module-10{
+        width: 95.5%;
+
+    }
+
+    .module-10 .title{
+        display: none;
+    }
+
+    .item-contain .news-title{
+        font-size: 0.75rem;
+        line-height: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .item-contain .news-detail{
+        display: none;
+    }
+}

@@ -27,10 +27,10 @@
 }
 
 .menu-button{
-    width: 52px;
-    height: 52px;
+    width: 1.875rem;
+    height: 1.875rem;
     display: none;
-    font-size: 32px;
+    font-size: 1.25rem;
     color: #FFF;
 }
 
@@ -83,12 +83,12 @@
 
     .menu li{
         width: 100%;
-        font-size: 16px;
+        font-size: 0.75rem;
         /*float: left;*/
         list-style: none;
         display: block;
         color: #666666;
-        line-height: 52px;
+        line-height: 2rem;
         text-align: center;
         cursor: pointer;
     }
