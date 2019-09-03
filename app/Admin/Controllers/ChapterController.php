@@ -9,6 +9,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Extensions\Actions\ChapterCheck;
+use App\Admin\Extensions\Actions\PreView;
 use App\Models\CmsChapter;
 use App\Http\Controllers\Controller;
 use App\Models\CmsChapterType;
@@ -102,7 +103,9 @@ class ChapterController extends Controller
 
 
             $grid->actions(function (Grid\Displayers\Actions $actions){
+                $actions->disableView();
                 $actions->append(new ChapterCheck($actions->getResource(), $actions->getKey()));
+                $actions->append(new PreView($actions->getResource(), $actions->getKey()));
             });
 
             //允许筛选的项
