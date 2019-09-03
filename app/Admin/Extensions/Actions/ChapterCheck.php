@@ -26,7 +26,7 @@ class ChapterCheck implements Renderable
     public function render()
     {
         return <<<EOT
-<a href="/admin/chapter_check/{$this->key}/edit">
+<a href="/admin/chapter_check/{$this->key}/edit" title="审核">
     <i class="fa fa-check-square-o"></i>
 </a>
 EOT;
