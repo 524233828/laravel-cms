@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ $title }}</title>
+    <title>新丰中小企业公共服务平台 - {{ $title }}</title>
 
     @include('web.css')
 
