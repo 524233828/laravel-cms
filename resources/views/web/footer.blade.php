@@ -15,8 +15,7 @@
                 <img src="images/qrcode_03.png" align="left">
                 <div class="info">
                     联系方式：0751-2287502<br>
-                    粤ICP备1234567890号<br>
-                    粤公网案备12345667890
+                    粤ICP备19068949号-1<br>
                 </div>
 
             </div>
