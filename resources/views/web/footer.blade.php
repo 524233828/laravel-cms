@@ -16,6 +16,9 @@
                 <div class="info">
                     联系方式：0751-2287502<br>
                     粤ICP备19068949号-1<br>
+                    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo">
+                        <img src="/images/beian.png" style="width:15px; height:15px;"/>粤公网安备 44023302000036号
+                    </a>
                 </div>
 
             </div>

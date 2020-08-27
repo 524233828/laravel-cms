@@ -105,6 +105,23 @@
     color: #FFFFFF;
 }
 
+.footer .content .block .info a:link{
+    color: #FFFFFF;
+}
+
+.footer .content .block .info a:active{
+    color: #FFFFFF;
+}
+
+.footer .content .block .info a:visited{
+    color: #FFFFFF;
+}
+
+.footer .content .block .info a:hover{
+    color: #FFFFFF;
+}
+
+
 .footer .content .block .title{
     width: 47.5%;
     padding-left: 2.5%;
